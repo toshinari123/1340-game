@@ -28,7 +28,9 @@ private:
 public:
     Menu_Daemon(vector<Layer>* layers, int num_layers_in,
             queue<int>* keystrokes_from_up, queue<string>* errors_to_pass_up)
-        : Daemon(layers, num_layers_in, keystrokes_from_up, errors_to_pass_up) {}
+        : Daemon(layers, num_layers_in, keystrokes_from_up, errors_to_pass_up) {
+        layers -> at(starting_layer).load_scene(errors_to_pass_up, "scenes/Main_Menu.scn");
+    }
 };
 
 #endif

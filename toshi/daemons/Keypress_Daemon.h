@@ -11,7 +11,15 @@ private:
         if ((*layers)[starting_layer].check("keystroke")) {
             (*layers)[starting_layer].remove(errors, "keystroke");
         }
-        (*layers)[starting_layer].add(errors, "keystroke", *(new TGF_Object(errors, 0.5, 0.5, to_string(key) + ": " + char(key))));
+        if (key < 10) {
+            (*layers)[starting_layer].add(errors, "keystroke", *(new TGF_Object(errors, 0.5, 0.5, to_string(key) + ": " + char(key) + "   ")));
+        } else if (key < 100) {
+            (*layers)[starting_layer].add(errors, "keystroke", *(new TGF_Object(errors, 0.5, 0.5, to_string(key) + ": " + char(key) + "  ")));
+        } else if (key < 256) {
+            (*layers)[starting_layer].add(errors, "keystroke", *(new TGF_Object(errors, 0.5, 0.5, to_string(key) + ": " + char(key) + " ")));
+        } else {
+            (*layers)[starting_layer].add(errors, "keystroke", *(new TGF_Object(errors, 0.5, 0.5, to_string(key) + ": " + char(key))));
+        }
         return false;
     }
     bool process_error(queue<string>* errors, vector<Layer>* layers, string error) {

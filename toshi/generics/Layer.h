@@ -12,11 +12,28 @@ public:
     map<string, TGF_Object> objs;
     bool is_braille;
     map<int, map<int, int>> count;
-    map<int, map<int, int>> screen;
+    map<int, map<int, wchar_t>> screen;
     int layer_id;
     Layer(bool is_b, int layer_id_in) {
         is_braille = is_b;
         layer_id = layer_id_in;
+    }
+    Layer(const Layer &l) {
+        objs = l.objs;
+        is_braille = l.is_braille;
+        count = l.count;
+        screen = l.screen;
+        layer_id = l.layer_id;
+    }
+    Layer& operator=(const Layer& other) {
+        if (this != &other) {
+            objs = other.objs;
+            is_braille = other.is_braille;
+            count = other.count;
+            screen = other.screen;
+            layer_id = other.layer_id;
+        }
+        return *this;
     }
     void load_scene(queue<string>* errors, string p) {
         objs.clear();
@@ -31,41 +48,47 @@ public:
         }
         string s, file, name;
         int posx, posy, i = 0;
-        getline(f, s);
+        f >> s;
         bool is_b;
-        if (s == "is braille") is_braille = true;
-        else if (s == "is not braille") is_braille = false;
+        if (s == "is_braille") is_braille = true;
+        else if (s == "is_not_braille") is_braille = false;
         else {
             errors -> push("Layer_load_scene: first line in scene file " + p + " is not \"is braille\" or \"is not braille\"");
             return;
         }
-        while (getline(f, s)) {
+        while (f >> file >> name) {
             i++;
-            stringstream ss(s);
-            if (!(ss >> file >> name)) {
-                errors -> push("Layer_load_scene: error reading file and name in line " + to_string(i) + " of scene file " + p);
+            if (file[0] == '#') {
+                string s;
+                getline(f, s);
+                continue;
             }
+            /*if (!(ss >> file >> name)) {
+                errors -> push("Layer_load_scene: error reading file and name in line " + to_string(i) + " of scene file " + p);
+            }*/
             TGF_Object obj(errors, file, 0, 0, 0, 0);
-            if (!(ss >> obj.alignx >> obj.aligny >> obj.offsetx >> obj.offsety)) {
+            //for (int i = 0; i < obj.graphics.size(); i++) wcerr << "hmph" << obj.graphics[i];
+            if (!(f >> obj.alignx >> obj.aligny >> obj.offsetx >> obj.offsety)) {
                 errors -> push("Layer_load_scene: error reading alignx, aligny, offsetx, offsety in line " + to_string(i) + " of scene file " + p);
             }
             if (is_braille) {
-                if (!(ss >> obj.br_offsetx >> obj.br_offsety)) {
+                if (!(f >> obj.br_offsetx >> obj.br_offsety)) {
                     errors -> push("Layer_load_scene: error reading br_offsetx and br_offsety in line " + to_string(i) + " of scene file " + p);
                 }
             }
             this -> add(errors, name, obj);
         }
     }
-    ~Layer() {
-        delete &objs;
-    }
+    /*~Layer() {
+        //delete &objs;
+    }*/
     void add(queue<string>* errors, string name, TGF_Object obj) {
         if (objs.find(name) != objs.end()) {
             errors -> push("Layer_add: duplicate name in layer");
         } else {
-            int sx = int(double(LINES) * obj.alignx) + obj.offsetx;
-            int sy = int(double(COLS) * obj.aligny) + obj.offsety;
+            int sx = int(double(LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
+            int sy = int(double(COLS) * obj.aligny) + obj.offsety - obj.pp_col;
+            wcerr << endl << "name: " << s2ws(name) << endl << "cont: " << s2ws(obj.optional_string) << endl << "size: " << obj.graphics.size() << endl;
             for (int i = 0; i < obj.bb_rows; i++) {
                 for (int j = 0; j < obj.bb_cols; j++) {
                     if (obj.opacity[i * obj.bb_cols + j]) {
@@ -74,8 +97,10 @@ public:
                             errors -> push("Layer_add: layer " + to_string(layer_id) + " overlap in (" + to_string(sx + i) + ", " + to_string(sy + j) + ")");
                         }
                         screen[sx + i][sy + j] = obj.graphics[i * obj.bb_cols + j];
+                        //wcerr << screen[sx + i][sy + j];
                     }
                 }
+                //wcerr << endl;
             }
             objs.insert(make_pair(name, obj));
         }
@@ -139,10 +164,10 @@ public:
     bool check(string name) {
         return objs.find(name) != objs.end();
     }
-    int render(int x, int y) {
-        if (screen.find(x) == screen.end()) return -1;
-        if (screen[x].find(y) == screen[x].end()) return -1;
-        return screen[x][y];
+    bool check(int x, int y) {
+        if (screen.find(x) == screen.end()) return false;
+        if (screen[x].find(y) == screen[x].end()) return false;
+        return true;
     }
 };
 
