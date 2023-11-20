@@ -1,5 +1,5 @@
 # hangman
 
-command to compile:
+command to compile: make hangman
 
-command to run:
+command to run: ./hangman
