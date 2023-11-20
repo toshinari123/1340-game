@@ -1,5 +1,5 @@
 # architecture
 
-`g++ main.cpp -lncurses -g -std=c++11`
+`g++ main.cpp -lncursesw -g -std=c++11`
 
 `./a.out`
