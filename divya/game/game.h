@@ -6,6 +6,7 @@
 
 using namespace std;
 
+extern int highScore;
 int game_main();
 
 #endif

@@ -5,15 +5,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "game.h"
+#include "popup.h"
 using namespace std;
+
 #define DELAY 30000
 int game_Window_Size_X = 20;
-int game_Window_Size_Y = 60;
+int game_Window_Size_Y = 70;
+int highScore = 0;
+int score = 0;
+bool isLost = false;
 
 class Monster{
 public:
-    int monsterx, monstery;
+    int monsterx, monstery, count = 0;
     string monster_string = "O";
+
+    bool correct_shot = false;
 
     void initialise(int monsterx, int monstery){
         this -> monsterx = monsterx;
@@ -27,7 +34,7 @@ public:
     }
 
     void erase(WINDOW* window){
-        mvwprintw(window, monstery, monsterx, "%s", "  ");
+        mvwprintw(window, monstery, monsterx, "%s", " ");
     }
 
     int monsterX(){
@@ -66,6 +73,7 @@ public:
     int bulletY(){
         return bullety;
     }
+
 };
 class Pistol{
 public:
@@ -108,13 +116,16 @@ public:
 
 int game_main(){
     WINDOW* gameWindow = newwin(game_Window_Size_X, game_Window_Size_Y, 0,0);
+    WINDOW* scoreWindow = newwin(4, game_Window_Size_Y, 20,0);
     keypad(stdscr, TRUE);
     noecho();
     curs_set(0);
     nodelay(stdscr, TRUE);
     //box(gameWindow, 0, 0);
     wrefresh(gameWindow);
+    wrefresh(scoreWindow);
     srand(time(NULL));
+    box(scoreWindow, 0, 0);
     Pistol pistol;
     pistol.initialise(0,0);
     pistol.draw(gameWindow);
@@ -123,29 +134,49 @@ int game_main(){
     vector<Monster> monsters;
         //printw("%s", "HIIIIII");
     wrefresh(gameWindow);
-
     while(true){
     //int monsters_num = rand()%4 + 1;
     //for(int i = 0; i < monsters_num; i++){
-        int monster_ypos = rand()%19 + 1;
+        mvwprintw(scoreWindow, 2, 2, "%s", "Score:");
+        mvwprintw(scoreWindow, 2, 9, "%s", "         ");
+        mvwprintw(scoreWindow, 2, 9, "%i", score);
+        wrefresh(scoreWindow);
+        int monster_ypos = rand()%14 + 1;
         int isMonsterCreate = rand()%50;
         if(isMonsterCreate == 1){
         Monster monster;
-        monster.initialise(game_Window_Size_Y- 1, monster_ypos);
-        monsters.push_back(monster);
-        monster.draw(gameWindow);
+           monster.initialise(game_Window_Size_Y- 1, monster_ypos);
+           monsters.push_back(monster);
+           monster.draw(gameWindow);
         }
     //}
     if(!monsters.empty()){
-   for(auto& monster : monsters){
-       if(monster.monsterX() >10){
-       monster.erase(gameWindow);
-       monster.update(gameWindow);
-       monster.draw(gameWindow);
-       }
-       if(monster.monsterX() == 10){
-       monster.erase(gameWindow);
-       }
+   for(auto itm = monsters.begin(); itm != monsters.end(); ){
+     Monster& monster = *itm;
+     if(monster.correct_shot == false){
+       if(monster.monsterX() >= 0){
+         monster.erase(gameWindow);
+         monster.update(gameWindow);
+         monster.draw(gameWindow);
+	 if(monster.monsterX() <= 10) {
+            pistol.draw(gameWindow);
+	 }
+	 ++itm;
+       } else if(monster.monsterX() < 0){
+        if(score > 0){
+         score--;
+         if(score == 0){
+            //mvwprintw(gameWindow, 5, 5, "%s", "AHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+            isLost = true;
+         }
+        }
+         monster.erase(gameWindow);
+	     itm = monsters.erase(itm);
+       } 
+     }
+   }
+   if(isLost){
+    break;
    }
     }
     int input = getch();
@@ -155,7 +186,7 @@ int game_main(){
     pistol.draw(gameWindow);
     wrefresh(gameWindow);
     }
-    if(input == KEY_LEFT){
+    if(input == ' '){
         //printw("%s", "HIIIIII");
         Bullet bullet;
         bullet.initialise(8, pistol.pistolY() + 1);
@@ -163,28 +194,51 @@ int game_main(){
         bullet.draw(gameWindow);
     }
 
-    if(!bullets.empty()){
-    for(auto& bullet : bullets){
-    bullet.erase(gameWindow);
-    bullet.update(gameWindow);
-    bullet.draw(gameWindow);
-    if(bullet.bulletX() == game_Window_Size_X -1){
+    /*if(!bullets.empty()){*/
+    for(auto itb = bullets.begin(); itb != bullets.end(); ){
+      Bullet& bullet = *itb;
+      bullet.erase(gameWindow);
+      bullet.update(gameWindow);
+      bullet.draw(gameWindow);
+      if(bullet.bulletX() >= game_Window_Size_Y -1){
         bullet.erase(gameWindow);
-        wrefresh(gameWindow);
-    }
+	itb = bullets.erase(itb);
+      } else {
+	++itb;
+      }
     }
     wrefresh(gameWindow);
-    }
-    if(!bullets.empty() && !monsters.empty()){
-    for(auto& monster : monsters){
-        for(auto& bullet : bullets){
-            if(bullet.bulletX() == monster.monsterX() && bullet.bulletY() == monster.monsterY()){
+    /*}*/
+    //if(!bullets.empty() && !monsters.empty()){
+    for(auto itb = bullets.begin(); itb != bullets.end(); ){
+	Bullet& bullet = *itb;
+	bool isHit = false;
+        for(auto itm = monsters.begin(); itm != monsters.end(); ){
+	    Monster& monster = *itm; 
+            if((bullet.bulletX() >= monster.monsterX()) && bullet.bulletY() == monster.monsterY()){
+                if(score < 10000){
+                score += 3;
+                if(score > highScore){
+                    highScore = score;
+                }
+                }
+                monster.correct_shot = true;
                 bullet.erase(gameWindow);
                 monster.erase(gameWindow);
-            }
+		itm = monsters.erase(itm);
+		isHit = true;
+		break;
+            } else {
+		    ++itm;
+	    }
         }
+	if(isHit) {
+	  itb = bullets.erase(itb);
+	} else {
+	  ++itb;
+	}
     }
-    }
+    //}
 
     if(input == 'q' || input == 'Q'){
         break;
@@ -192,7 +246,10 @@ int game_main(){
     flushinp();
     usleep(DELAY);
     };
+    if(isLost){
+        popup_main();
+    }
     getch();
     endwin();
 return 0;
-}
+};
