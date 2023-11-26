@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cstring>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -17,9 +18,11 @@ public:
 private:
     int playerX, playerY;
     int endX, endY;
-    int trapX[20], trapY[20];
+    int trapX[30], trapY[30];
+    vector<int>showX;
+    vector<int>showY;
     int numTraps;
-
+    string minigames[3];
     void initGame();
     void draw();
     void getInput();
@@ -27,6 +30,7 @@ private:
     bool checkCollision();
     void playMiniGame();
     void playagain();
+    void showtrap();
 };
 
 Game::Game() {
@@ -57,7 +61,9 @@ void Game::initGame() {
     endX = COLS - 1;
     endY = LINES - 1;
 
-    numTraps = 20;
+    minigames[0]= "../ngoni/Hangman/hangman";
+    minigames[1]= "../divya/game/main";
+    numTraps = 30;
 
     for (int i = 0; i < numTraps; ++i) {
         trapX[i] = rand() % COLS;
@@ -67,6 +73,7 @@ void Game::initGame() {
 
 void Game::draw() {
     clear();
+    showtrap();
     setlocale(LC_ALL, "");
 
     // Draw player
@@ -77,7 +84,7 @@ void Game::draw() {
 
     // Draw traps (invisible)
     for (int i = 0; i < numTraps; ++i) {
-        mvprintw(trapY[i], trapX[i], "T");
+        mvprintw(trapY[i], trapX[i], "");
     }
 
     refresh();
@@ -117,25 +124,38 @@ void Game::update() {
 
     if (checkCollision()) {
         playMiniGame();
-        printw(to_string(numTraps).c_str()); 
     }
 }
 
 bool Game::checkCollision() {
-    for (int i = 0; i < numTraps; ++i) {
+    for (int i = 0; i < 30; ++i) {
         if (playerX == trapX[i] && playerY == trapY[i]) {
+            showX.push_back(trapX[i]);
+            showY.push_back(trapY[i]);
+            trapX[i] = -1;
+            trapY[i] = -1;
             return true;
         }
+    }
+    for (int j=0; j<showX.size(); j++){
+        if (playerX == showX[j] && playerY == showY[j]) return true;
     }
     return false;
 }
 
-//this function needs editing!!
+
+void Game::showtrap(){
+    for(int i=0; i<showX.size(); i++){
+        mvprintw(showY[i], showX[i], "T");
+    }
+}
+
 void Game::playMiniGame() {
     playerX=0;
     playerY=0;
     clear();
-    system("./hangman");
+    int choose= rand() %2;
+    system(minigames[choose].c_str());
     refresh();
     playagain();
 }
