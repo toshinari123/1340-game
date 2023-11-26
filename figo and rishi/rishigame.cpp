@@ -18,10 +18,10 @@ public:
 private:
     int playerX, playerY;
     int endX, endY;
-    int trapX[30], trapY[30];
+    static const int numTraps=50;
+    int trapX[numTraps], trapY[numTraps];
     vector<int>showX;
     vector<int>showY;
-    int numTraps;
     string minigames[3];
     void initGame();
     void draw();
@@ -63,8 +63,7 @@ void Game::initGame() {
 
     minigames[0]= "../ngoni/Hangman/hangman";
     minigames[1]= "../divya/game/main";
-    minigames[2]= "../figo\ and\ rishi/blackjack";
-    numTraps = 30;
+    minigames[2]= "blackjack";
 
     for (int i = 0; i < numTraps; ++i) {
         trapX[i] = rand() % COLS;
@@ -85,7 +84,7 @@ void Game::draw() {
 
     // Draw traps (invisible)
     for (int i = 0; i < numTraps; ++i) {
-        mvprintw(trapY[i], trapX[i], "");
+        mvprintw(trapY[i], trapX[i], "Q");
     }
 
     refresh();
@@ -129,7 +128,7 @@ void Game::update() {
 }
 
 bool Game::checkCollision() {
-    for (int i = 0; i < 30; ++i) {
+    for (int i = 0; i < numTraps; ++i) {
         if (playerX == trapX[i] && playerY == trapY[i]) {
             showX.push_back(trapX[i]);
             showY.push_back(trapY[i]);

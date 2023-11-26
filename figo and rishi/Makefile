@@ -7,6 +7,6 @@ blackjack: blackjack.cpp
 	g++ $(FLAGS) $^ -o $@
 
 clean:
-	rm -f game
+	rm -f game blackjack
 
 .PHONY: clean
