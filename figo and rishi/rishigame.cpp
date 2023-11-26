@@ -70,7 +70,7 @@ void Game::draw() {
     setlocale(LC_ALL, "");
 
     // Draw player
-    mvprintw(playerY, playerX, L"🤠");
+    mvprintw(playerY, playerX, "🤠");
 
     // Draw end point
     mvprintw(endY, endX, "🚩");
