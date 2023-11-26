@@ -3,12 +3,12 @@
 #include <ctime>
 #include <ncurses.h>
 #include <fstream>
+#include <cstring>
+#include <string>
 
 using namespace std;
 
-//initialize
-const int rows = 30;
-const int cols = 30;
+
 
 class Game {
 public:
@@ -17,7 +17,7 @@ public:
 private:
     int playerX, playerY;
     int endX, endY;
-    int trapX[5], trapY[5];
+    int trapX[20], trapY[20];
     int numTraps;
 
     void initGame();
@@ -26,6 +26,7 @@ private:
     void update();
     bool checkCollision();
     void playMiniGame();
+    void playagain();
 };
 
 Game::Game() {
@@ -40,30 +41,39 @@ Game::Game() {
     initGame();
 }
 
+void Game:: playagain(){
+    initscr(); // initialize ncurses
+    raw(); // disable line buffering
+    keypad(stdscr, TRUE); // enable special key input
+    noecho(); // don't display input
+    curs_set(0); // hide cursor
+    start_color(); // enable color
+    init_pair(1, COLOR_CYAN, COLOR_BLACK); // define color pair
+}
+
 void Game::initGame() {
     playerX = 0;
     playerY = 0;
-    endX = cols - 1;
-    endY = rows - 1;
+    endX = COLS - 1;
+    endY = LINES - 1;
 
-    numTraps = rand() % 10 + 7; // random number of traps 7-10
+    numTraps = 20;
 
     for (int i = 0; i < numTraps; ++i) {
-        trapX[i] = rand() % cols;
-        trapY[i] = rand() % rows;
+        trapX[i] = rand() % COLS;
+        trapY[i] = rand() % LINES;
     }
 }
 
 void Game::draw() {
     clear();
+    setlocale(LC_ALL, "");
 
     // Draw player
-    attron(COLOR_PAIR(1));
-    mvprintw(playerY, playerX, "@");
-    attroff(COLOR_PAIR(1));
+    mvprintw(playerY, playerX, L"🤠");
 
     // Draw end point
-    mvprintw(endY, endX, "X");
+    mvprintw(endY, endX, "🚩");
 
     // Draw traps (invisible)
     for (int i = 0; i < numTraps; ++i) {
@@ -80,16 +90,16 @@ void Game::getInput() {
             if (playerY > 0) playerY--;
             break;
         case KEY_DOWN:
-            if (playerY < rows - 1) playerY++;
+            if (playerY < LINES - 1) playerY++;
             break;
         case KEY_LEFT:
             if (playerX > 0) playerX--;
             break;
         case KEY_RIGHT:
-            if (playerX < cols - 1) playerX++;
+            if (playerX < COLS - 1) playerX++;
             break;
         case 'q':
-            endwin(); // 
+            endwin(); 
             exit(0);
             break;
     }
@@ -98,7 +108,7 @@ void Game::getInput() {
 void Game::update() {
     if (playerX == endX && playerY == endY) {
         clear();
-        mvprintw(rows / 2, cols / 2 - 4, "You Win!");
+        mvprintw(LINES / 2, COLS / 2 - 4, "You Win!");
         refresh();
         getch();
         endwin();
@@ -106,7 +116,8 @@ void Game::update() {
     }
 
     if (checkCollision()) {
-        playMiniGame(); // Open a random game file
+        playMiniGame();
+        printw(to_string(numTraps).c_str()); 
     }
 }
 
@@ -118,35 +129,15 @@ bool Game::checkCollision() {
     }
     return false;
 }
+
 //this function needs editing!!
 void Game::playMiniGame() {
-    
-    int randomGame = rand() % 4 + 1; // Assuming you have game1, game2, game3, and game4
-    string gameFileName = "game" + to_string(randomGame);
-    ifstream gameFile(gameFileName);
-
-    if (!gameFile.is_open()) {
-        cerr << "Error: Could not open mini-game file " << gameFileName << endl;
-        return;
-    }
-
+    playerX=0;
+    playerY=0;
     clear();
-    mvprintw(rows / 2, cols / 2 - 10, "Mini-Game: %s", gameFileName.c_str());
+    system("./hangman");
     refresh();
-    
-    // Simulate playing the mini-game (you may need to modify this part based on your actual mini-games)
-    getch();
-
-    // Close the mini-game file
-    gameFile.close();
-
-    // Remove the trap after completing the mini-game
-    for (int i = 0; i < numTraps; ++i) {
-        if (playerX == trapX[i] && playerY == trapY[i]) {
-            trapX[i] = -1; // Set the trap position to an invalid value to mark it as removed
-            trapY[i] = -1;
-        }
-    }
+    playagain();
 }
 
 void Game::run() {
