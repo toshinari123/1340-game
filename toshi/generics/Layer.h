@@ -4,6 +4,7 @@
 #include <bits/stdc++.h>
 #include <ncurses.h>
 #include "TGF_Object.h"
+#include "misc.h"
 using namespace std;
 
 class Layer {
@@ -14,6 +15,8 @@ public:
     map<int, map<int, int>> count;
     map<int, map<int, wchar_t>> screen;
     int layer_id;
+    vector<string> optional_keywords;
+    map<string, vector<string>> optional_lists;
     Layer(bool is_b, int layer_id_in) {
         is_braille = is_b;
         layer_id = layer_id_in;
@@ -35,7 +38,7 @@ public:
         }
         return *this;
     }
-    void load_scene(queue<string>* errors, string p) {
+    void load_scene(queue<wstring>* errors, string p) {
         objs.clear();
         count.clear();
         screen.clear();
@@ -43,7 +46,7 @@ public:
         ifstream f;
         f.open(p);
         if (f.bad()) {
-            errors -> push("Layer_load_scene: invalid scene file path " + p);
+            errors -> push(L"Layer_load_scene: invalid scene file path " + s2ws(p));
             return;
         }
         string s, file, name;
@@ -53,7 +56,7 @@ public:
         if (s == "is_braille") is_braille = true;
         else if (s == "is_not_braille") is_braille = false;
         else {
-            errors -> push("Layer_load_scene: first line in scene file " + p + " is not \"is braille\" or \"is not braille\"");
+            errors -> push(L"Layer_load_scene: first line in scene file " + s2ws(p) + L" is not \"is braille\" or \"is not braille\"");
             return;
         }
         while (f >> file >> name) {
@@ -69,35 +72,48 @@ public:
             TGF_Object obj(errors, file, 0, 0, 0, 0);
             //for (int i = 0; i < obj.graphics.size(); i++) wcerr << "hmph" << obj.graphics[i];
             if (!(f >> obj.alignx >> obj.aligny >> obj.offsetx >> obj.offsety)) {
-                errors -> push("Layer_load_scene: error reading alignx, aligny, offsetx, offsety in line " + to_string(i) + " of scene file " + p);
+                errors -> push(L"Layer_load_scene: error reading alignx, aligny, offsetx, offsety in line " + to_wstring(i) + L" of scene file " + s2ws(p));
             }
             if (is_braille) {
                 if (!(f >> obj.br_offsetx >> obj.br_offsety)) {
-                    errors -> push("Layer_load_scene: error reading br_offsetx and br_offsety in line " + to_string(i) + " of scene file " + p);
+                    errors -> push(L"Layer_load_scene: error reading br_offsetx and br_offsety in line " + to_wstring(i) + L" of scene file " + s2ws(p));
+                }
+            }
+            for (string a : optional_keywords) {
+                if (name.find(a) != string::npos) {
+                    optional_lists[a].push_back(name);
                 }
             }
             this -> add(errors, name, obj);
         }
     }
-    /*~Layer() {
-        //delete &objs;
-    }*/
-    void add(queue<string>* errors, string name, TGF_Object obj) {
+    ~Layer() {
+        objs.clear();
+        count.clear();
+        screen.clear();
+        optional_keywords.clear();
+        optional_lists.clear();
+    }
+    void add(queue<wstring>* errors, string name, TGF_Object obj) {
         if (objs.find(name) != objs.end()) {
-            errors -> push("Layer_add: duplicate name in layer");
+            errors -> push(L"Layer_add: duplicate name in layer");
         } else {
             int sx = int(double(LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
             int sy = int(double(COLS) * obj.aligny) + obj.offsety - obj.pp_col;
-            wcerr << endl << "name: " << s2ws(name) << endl << "cont: " << s2ws(obj.optional_string) << endl << "size: " << obj.graphics.size() << endl;
+            wcerr << endl << L"name: " << s2ws(name) << endl << L"cont: " << obj.optional_string << endl << L"size: " << obj.graphics.size() << endl;
             for (int i = 0; i < obj.bb_rows; i++) {
                 for (int j = 0; j < obj.bb_cols; j++) {
-                    if (obj.opacity[i * obj.bb_cols + j]) {
-                        count[sx + i][sy + j]++;
-                        if (count[sx + i][sy + j] > 1) {
-                            errors -> push("Layer_add: layer " + to_string(layer_id) + " overlap in (" + to_string(sx + i) + ", " + to_string(sy + j) + ")");
+                    if (i * obj.bb_cols + j >= obj.opacity.size()) {
+                        errors -> push(L"Layer_add: \"" + s2ws(name) + L"\" in layer " + to_wstring(layer_id) + L" opacity length is " + to_wstring(obj.opacity.size()) + L", should be " + to_wstring(obj.bb_rows * obj.bb_cols));
+                    } else {
+                        if (obj.opacity[i * obj.bb_cols + j]) {
+                            count[sx + i][sy + j]++;
+                            if (count[sx + i][sy + j] > 1) {
+                                errors -> push(L"Layer_add: layer " + to_wstring(layer_id) + L" overlap in (" + to_wstring(sx + i) + L", " + to_wstring(sy + j) + L")");
+                            }
+                            screen[sx + i][sy + j] = obj.graphics[i * obj.bb_cols + j];
+                            //wcerr << screen[sx + i][sy + j];
                         }
-                        screen[sx + i][sy + j] = obj.graphics[i * obj.bb_cols + j];
-                        //wcerr << screen[sx + i][sy + j];
                     }
                 }
                 //wcerr << endl;
@@ -105,28 +121,32 @@ public:
             objs.insert(make_pair(name, obj));
         }
     }
-    void remove(queue<string>* errors, string name) {
+    void remove(queue<wstring>* errors, string name) {
         if (objs.find(name) == objs.end()) {
-            errors -> push("Layer_remove: cannot find \"" + name + "\" in layer " + to_string(layer_id) + " to remove");
+            errors -> push(L"Layer_remove: cannot find \"" + s2ws(name) + L"\" in layer " + to_wstring(layer_id) + L" to remove");
         } else {
             auto obj = objs.at(name);
-            int sx = int(double(LINES) * obj.alignx) + obj.offsetx;
-            int sy = int(double(COLS) * obj.aligny) + obj.offsety;
+            int sx = int(double(LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
+            int sy = int(double(COLS) * obj.aligny) + obj.offsety - obj.pp_col;
             for (int i = 0; i < obj.bb_rows; i++) {
                 for (int j = 0; j < obj.bb_cols; j++) {
-                    if (obj.opacity[i * obj.bb_cols + j]) {
-                        count[sx + i][sy + j]--;
-                        if (count[sx + i][sy + j] < 0) {
-                            errors -> push("Layer_remove: layer " + to_string(layer_id) + " negative count in (" + to_string(sx + i) + ", " + to_string(sy + j) + ")");
+                    if (i * obj.bb_cols + j >= obj.opacity.size()) {
+                        errors -> push(L"Layer_remove: \"" + s2ws(name) + L"\" in layer " + to_wstring(layer_id) + L" opacity length is " + to_wstring(obj.opacity.size()) + L", should be " + to_wstring(obj.bb_rows * obj.bb_cols));
+                    } else {
+                        if (obj.opacity[i * obj.bb_cols + j]) {
+                            count[sx + i][sy + j]--;
+                            if (count[sx + i][sy + j] < 0) {
+                                errors -> push(L"Layer_remove: layer " + to_wstring(layer_id) + L" negative count in (" + to_wstring(sx + i) + L", " + to_wstring(sy + j) + L")");
+                            }
+                            screen[sx + i].erase(sy + j);
                         }
-                        screen[sx + i].erase(sy + j);
                     }
                 }
             }
             objs.erase(name);
         }
     }
-    void modify(queue<string>* errors, string name, TGF_Object new_obj) {
+    void modify(queue<wstring>* errors, string name, TGF_Object new_obj) {
         this -> remove(errors, name);
         this -> add(errors, name, new_obj);
         /*if (objs.find(name) == objs.end()) {
@@ -136,19 +156,19 @@ public:
         }*/
     }
     //TODO: make another modify that takes in a function as input
-    void redraw(queue<string>* errors) {
+    void redraw(queue<wstring>* errors) {
         screen.clear();
         count.clear();
         for (auto kv : objs) {
             TGF_Object obj = kv.second;
-            int sx = int(double(LINES) * obj.alignx) + obj.offsetx;
-            int sy = int(double(COLS) * obj.aligny) + obj.offsety;
+            int sx = int(double(LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
+            int sy = int(double(COLS) * obj.aligny) + obj.offsety - obj.pp_col;
             for (int i = 0; i < obj.bb_rows; i++) {
                 for (int j = 0; j < obj.bb_cols; j++) {
                     if (obj.opacity[i * obj.bb_cols + j]) {
                         count[sx + i][sy + j]++;
                         if (count[sx + i][sy + j] > 1) {
-                            errors -> push("Layer_redraw: layer " + to_string(layer_id) + " overlap in (" + to_string(sx + i) + ", " + to_string(sy + j) + ")");
+                            errors -> push(L"Layer_redraw: layer " + to_wstring(layer_id) + L" overlap in (" + to_wstring(sx + i) + L", " + to_wstring(sy + j) + L")");
                         }
                         screen[sx + i][sy + j] = obj.graphics[i * obj.bb_cols + j];
                     }

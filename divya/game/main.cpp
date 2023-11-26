@@ -23,6 +23,7 @@ int main(){
     //Set getch() to non-blocking mode
     //nodelay(stdscr, TRUE);
     game_main();
+    //game_main();
     getch();
     endwin();
 return 0;

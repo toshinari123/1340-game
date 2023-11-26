@@ -1,19 +1,12 @@
-#ifndef MISC_H
-#define MISC_H
+#ifndef MISC_GAME_FUNCTIONS_H
+#define MISC_GAME_FUNCTIONS_H
 
-#include <bits/stdc++.h>
+#include <codecvt>
+#include <locale>
 using namespace std;
 
-wstring s2ws(const string& str) {
-    using convert_typeX = codecvt_utf8<wchar_t>;
-    wstring_convert<convert_typeX, wchar_t> converterX;
-    return converterX.from_bytes(str);
-}
+wstring s2ws(const string& str);
 
-string ws2s(const wstring& wstr) {
-    using convert_typeX = codecvt_utf8<wchar_t>;
-    wstring_convert<convert_typeX, wchar_t> converterX;
-    return converterX.to_bytes(wstr);
-}
+string ws2s(const wstring& wstr);
 
 #endif
