@@ -63,6 +63,7 @@ void Game::initGame() {
 
     minigames[0]= "../ngoni/Hangman/hangman";
     minigames[1]= "../divya/game/main";
+    minigames[2]= "../figo\ and\ rishi/blackjack";
     numTraps = 30;
 
     for (int i = 0; i < numTraps; ++i) {
@@ -154,7 +155,7 @@ void Game::playMiniGame() {
     playerX=0;
     playerY=0;
     clear();
-    int choose= rand() %2;
+    int choose= rand() % 3;
     system(minigames[choose].c_str());
     refresh();
     playagain();
