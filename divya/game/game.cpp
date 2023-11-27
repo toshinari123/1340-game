@@ -10,7 +10,7 @@ using namespace std;
 
 #define DELAY 30000 //define the delay between each iteration in the main while loop
 
-int game_Window_Size_X = 23;
+int game_Window_Size_X = 19;
 int game_Window_Size_Y = 50;
 int score = 0;
 int lives = 10;
@@ -78,7 +78,9 @@ public:
 class Pistol{
 public:
     int pistolx, pistoly;
-    string pistol_string = "_______\n| _____|\n|_|";
+    string pistol_string_1 = "_______";
+    string pistol_string_2 = "| _____|";
+    string pistol_string_3 = "|_|";
 
     void initialise(int pistolx, int pistoly){
         this -> pistoly = pistoly;
@@ -86,19 +88,20 @@ public:
     }
 
     void draw(WINDOW* window) {
-        mvwprintw(window, pistoly, pistolx,"%s",pistol_string.c_str());
-
+        mvwprintw(window, pistoly, pistolx,"%s",pistol_string_1.c_str());
+        mvwprintw(window, pistoly + 1, pistolx,"%s",pistol_string_2.c_str());
+        mvwprintw(window, pistoly + 2, pistolx,"%s",pistol_string_3.c_str());
     }
 
     void updatePistol(int input) {
         switch(input) {
             case KEY_UP:
-                if(pistoly > 0) {
+                if(pistoly > 1) {
                     pistoly--;
                 }
                 break;
             case KEY_DOWN:
-                if(pistoly < game_Window_Size_X -7) {
+                if(pistoly < game_Window_Size_X -5) {
                     pistoly++;
                 }
                 break;
@@ -110,7 +113,9 @@ public:
         return pistoly;
     }
     void erase(WINDOW *window){
-            mvwprintw(window, pistoly, pistolx, "\n\n\n");
+        mvwprintw(window, pistoly, pistolx,"%s", "       ");
+        mvwprintw(window, pistoly + 1, pistolx,"%s", "        ");
+        mvwprintw(window, pistoly + 2, pistolx,"%s", "       ");
     }
 };
 
@@ -119,12 +124,13 @@ int game_main(){
 
     WINDOW* gameWindow = newwin(game_Window_Size_X, game_Window_Size_Y, 3,0);
     WINDOW* scoreWindow = newwin(3, game_Window_Size_Y, 0,0);
-    WINDOW* instructionsWindow = newwin(game_Window_Size_X, 35, 0, 50);
+    WINDOW* instructionsWindow = newwin(game_Window_Size_X + 3, 35, 0, 50);
 
     keypad(stdscr, TRUE);
     noecho();
     curs_set(0);
     nodelay(stdscr, TRUE);
+    box(gameWindow, 0, 0);
     box(scoreWindow, 0, 0);
     box(instructionsWindow, 0, 0);
     srand(time(NULL));
@@ -134,7 +140,7 @@ int game_main(){
     mvwprintw(scoreWindow, 1, 2, "%s", "Score:");
     mvwprintw(scoreWindow, 1, 40, "%s", "Lives:");
     mvwprintw(instructionsWindow, 1, 1, "%s", "GAME MANUAL:");
-    mvwprintw(instructionsWindow, 2, 1, "%s", "S: Start");
+    mvwprintw(instructionsWindow, 2, 1, "%s", "Start : S");
     mvwprintw(instructionsWindow, 3, 1, "%s", "Move Pistol up : Up Arrow");
     mvwprintw(instructionsWindow, 4, 1, "%s", "Move Pistol down : Down Arrow");
     mvwprintw(instructionsWindow, 5, 1, "%s", "Shoot : SpaceBar");
@@ -156,7 +162,7 @@ int game_main(){
     
     //initialise pistol
     Pistol pistol;
-    pistol.initialise(0,0);
+    pistol.initialise(1,1);
 
     //initialise bullets and monsters
     vector<Bullet> bullets;
@@ -183,11 +189,11 @@ int game_main(){
 
         //game window pistol print and monster initialisation
         pistol.draw(gameWindow);
-        int monster_ypos = rand()%14 + 1;
-        int isMonsterCreate = rand()%50;
+        int monster_ypos = rand()%14 + 2;
+        int isMonsterCreate = rand()%49;
         if(isMonsterCreate == 1){
         Monster monster;
-           monster.initialise(game_Window_Size_Y- 1, monster_ypos);
+           monster.initialise(game_Window_Size_Y- 2, monster_ypos);
            monsters.push_back(monster);
            monster.draw(gameWindow);
         }
@@ -205,9 +211,10 @@ int game_main(){
 	                if(monster.monsterX() <= 10) {
                         //handle monster reaching the boundary
                         pistol.draw(gameWindow);
+                        box(gameWindow, 0, 0);
 	                }
 	                ++itm;
-                } else if(monster.monsterX() < 0){
+                } else if(monster.monsterX() < 2){
                 if(lives > 0){
                     //decrease lives if monster is not hit
                     lives--;
@@ -250,7 +257,7 @@ int game_main(){
       bullet.erase(gameWindow);
       bullet.update(gameWindow);
       bullet.draw(gameWindow);
-      if(bullet.bulletX() >= game_Window_Size_Y -1){
+      if(bullet.bulletX() >= game_Window_Size_Y -2){
         //handle bullet reaching the boundary
         bullet.erase(gameWindow);
 	    itb = bullets.erase(itb);
@@ -288,7 +295,7 @@ int game_main(){
 
     //refresh window
     wrefresh(gameWindow);
-    
+
     if(input == 'q' || input == 'Q'){
         break;
     }

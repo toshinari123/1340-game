@@ -17,23 +17,23 @@ int popup_main(){
     noecho();
     curs_set(0);
     nodelay(stdscr, TRUE);
-    mvwprintw(popUp, 11, 36, "%s", "YOU LOST!");
-    mvwprintw(popUp, 12, 32 , "%s", "Your score was : ");
-    mvwprintw(popUp, 12, 49, "%i", score);
-    mvwprintw(popUp, 13, 25 , "%s", "PRESS Q TO GO BACK TO THE MAIN GAME");
+    mvwprintw(popUp, 10, 36, "%s", "GAME OVER");
+    mvwprintw(popUp, 11, 30 , "%s", "Your score was : ");
+    mvwprintw(popUp, 11, 47, "%i", score);
+    mvwprintw(popUp, 12, 25 , "%s", "PRESS Q TO GO BACK TO THE MAIN GAME");
 
     wrefresh(popUp);
     char input;
-    cin >> input;
-    if(input == 'q' || input == 'Q'){
-        clear();
-        /* call the main game function here
-        Example : game_main();
-        */
-        endwin();
+    while(input != 'q' || input != 'Q'){
+        cin >> input;
+        if(input == 'q' || input == 'Q'){
+            clear();
+            /* call the main game function here
+            Example : game_main();
+            */
+            break;
+        }
     }
     endwin();
-    //getch();
-    //endwin();
     return 0;
 }
