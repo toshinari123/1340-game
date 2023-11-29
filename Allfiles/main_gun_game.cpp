@@ -1,3 +1,5 @@
+#include <iostream>
+#include <ncurses.h>
 #include <vector>
 #include <unistd.h>
 #include <stdio.h>
