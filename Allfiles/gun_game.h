@@ -6,7 +6,6 @@
 
 using namespace std;
 
-extern int score;
-int game_main();
+int main();
 
 #endif
