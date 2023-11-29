@@ -88,7 +88,7 @@ int deal(vector<int> &deck){
 
 void printhands(const vector<int> &dealer, const vector<vector<int>> &hands, const vector<int> &bets){
     int currhand = 1, sum;
-    mvprintw(1, 0, "Dealer: %s\nYour hand(s):\n\n", getcard(dealer[0]).c_str());
+    mvprintw(2, 0, "Dealer: %s\nYour hand(s):\n\n", getcard(dealer[0]).c_str());
     for (auto hand : hands) {
         printw("(%d): ", currhand);
         for (auto card : hand)
@@ -135,7 +135,7 @@ int sumcards(const vector<int> &hand)
 
 void takeinsurance(const vector<int> &dealer, const vector<int> &bets, int &chips)
 {
-    mvprintw(1, 0, "Dealer: %s %s \n", getcard(dealer[0]).c_str(), getcard(dealer[1]).c_str());
+    mvprintw(2, 0, "Dealer: %s %s \n", getcard(dealer[0]).c_str(), getcard(dealer[1]).c_str());
     int dealer_sum = sumcards(dealer);
     int sum = accumulate(bets.begin(), bets.end(), 0);
     if (dealer_sum == 21) {
@@ -151,7 +151,6 @@ void takeinsurance(const vector<int> &dealer, const vector<int> &bets, int &chip
 int main()
 {
     initscr();
-    nodelay(stdscr, FALSE);
     raw();
     setlocale(LC_ALL, "");
     random_device rd;
@@ -161,23 +160,53 @@ int main()
     char formatstring[] = "%s";
     string c;
 
-    printw("Welcome to Blackjack. Blackjack pays 3:2. Insurance pays " "2:1.\nDealer stands on 17.\n");
+    printw("Welcome to Blackjack. Read the following GAME RULES:\n\n");
+    printw("1. The objective of this game is to have a hand value as close to 21 as possible without exceeding 21. A hand's value is the sum of the card values. Get 2500 chips to win! (You start with 1000 chips)\n\n");
+    printw("2. Cards from 2 to 10 are worth their face value. Kings (K), Queens (Q), and Jacks (J) are each worth 10. Aces can be worth either 1 or 11, depending on which value benefits the player or dealer.\n\n");
+    printw("3. At the start of each round, the dealer gives two cards to each player and two to themselves.\n\n");
+    printw("4. If a player's first two cards are an Ace and a 10-value card, this is a Blackjack and typically pays out at 3:2, unless the dealer also has a Blackjack which results in a push (tie).\n\n");
+    printw("5. After receiving their first two cards, each player has a turn to improve their hands. Options are:\n\nHit: Ask for another card. Players can hit repeatedly until they either bust (go over 21) or decide to stand.\nStand: Stop taking more cards, keeping the current total.\nDouble Down: Double the initial bet in exchange for committing to stand after receiving exactly one more card.\n\n");
+    printw("6. If the player's first two cards are of the same value, they can split them into two separate hands. The bet is also doubled, and an additional card is dealt to each new hand. Rules about re-splitting or hitting on split Aces vary depending on the casino.\n\n");
+    printw("7. After all players have made their decisions, the dealer reveals their hole card and plays their hand. Dealer's decisions are automatic and follow a simple rule: they must hit if their hand total is less than or equal to 16, and stand if it's 17 or higher.\n\n");
+    printw("8. If the dealer busts, all remaining players win an amount equal to their bet. If the dealer doesn't bust, they pay any player with a higher hand total an amount equal to their bet, and collect the bet of any player with a lower hand total. If a player and the dealer have the same hand total,\n it is a push and the player's bet is returned.\n\n");
+    printw("HAVE FUN!! >_<\n\n");
+    printw("PRESS ENTER TO START");
+
+    int ch = getch();
+    if (ch == '\n') {
+        clear();  // Clear the screen
+        refresh();  // Update the screen with the new output
+    }
 
     while (chips<=2500) {
         vector<int> deck, dealer, bets;
         vector<vector<int>> hands;
-        printw("\n\nChips: %d", chips);
-        printw("\nEnter number of hands (10 min. each): ");
+        int a;
+        move(4,0);
+        clrtoeol();
+        mvprintw(2, 0, "Chips: %d", chips);
         refresh();
-        scanw(format, &numhands);
+        do {
+            move(4,0);
+            clrtoeol();
+            mvprintw(4, 0, "\nEnter number of hands (5 max. each): ");
+            refresh();
+            scanw(format, &numhands);
+        } while (numhands > 5);
+
         if (numhands * 10 > chips) {
-            printw("You do not have enough chips. Here are 500 chips. Try Again!\n");
+            move(5, 0);
+            clrtoeol();
+            mvprintw(6, 0, "You do not have enough chips. Here are 500 chips. Try again!\n");
+            refresh();
             chips += 500;
             continue;
         }
         if (numhands < 1 || chips < 10)
             continue;
         for (int i = 1; i <= numhands; ++i) {
+            move(5, 0);
+            clrtoeol();
             printw("Enter bet amount for hand %d: ", i);
             refresh();
             scanw(format, &bet);
@@ -188,8 +217,8 @@ int main()
             }
             bets.push_back(bet);
             chips -= bet;
-
         }
+        clear();
 
 
         for (int i = 0; i < DECK_SIZE; ++i)
@@ -216,12 +245,19 @@ int main()
             }
         }
         if (dealer[0] % 13 == 1) {
+            move(numhands+5, 0);
+            clrtoeol();
             printw("\nTake insurance? [y/N]: ");
             refresh();
             scanw(formatstring, &c);
             if (c[0] == 'y' || c[0] == 'Y') {
-                printw("You chose to take insurance.\n");
+                printw("You chose to take insurance.\n(press enter)");
                 takeinsurance(dealer, bets, chips);
+                    int ch = getch();
+                    if (ch == '\n') {
+                        clear();  // Clear the screen
+                        refresh();  // Update the screen with the new output
+                    }
                 continue;
             } 
             else
@@ -231,8 +267,12 @@ int main()
         for (int i = 0; i < numhands; ++i) {
             if (sumcards(hands[i]) == 21)
                 continue;
+            move(numhands+6, 0);
+            clrtoeol();
             printw("Hand %d:\n", i+1);
+            refresh();
             if ((hands[i][0] % 13 == hands[i][1] % 13) && chips >= bets[i]) {
+                
                 printw("Split hand %d? (cost: %d) [y/N:]", i+1, bets[i]);
                 refresh();
                 scanw(formatstring, &c);
@@ -252,10 +292,14 @@ int main()
             while (sumcards(hands[i]) < 21) {
                 printhands(dealer, hands, bets);
                 if (hands[i].size() == 2 && chips >= bets[i]) {
-                    printw("Hit, stand or double? [h/S/d]: ");
+                    move(numhands+5, 0);
+                    clrtoeol();
+                    mvprintw(numhands+5, 0, "Hit, stand or double? [h/S/d]: ");
                     refresh();
                 } else {
-                    printw("Hit or stand? [h/S]: ");
+                    move(numhands+5, 0);
+                    clrtoeol();
+                    mvprintw(numhands+5, 0,"Hit or stand? [h/S]: ");
                     refresh();
                 }
                 scanw(formatstring, &c);
@@ -276,7 +320,6 @@ int main()
         while (sumcards(dealer) < 17 || (sumcards(dealer) == 17 && numaces(dealer) != 0))
             dealer.push_back(deal(deck));
         printhands(dealer, hands, bets);
-        clear();
         printw("Dealer's full hand: ");
         for (auto card : dealer)
             printw("%s ", getcard(card).c_str());
@@ -297,7 +340,12 @@ int main()
                 chips += bets[i];
             }
         }
-
+        int ch = getch();
+        if (ch == '\n') {
+        clear();  // Clear the screen
+        refresh();  // Update the screen with the new output
+    }
+        
     }
 
     printw("Thank you for playing!\nTotal score: %d\nCash return: $%.2f\n", chips, (double)chips/100);
