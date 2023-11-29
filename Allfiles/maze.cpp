@@ -110,7 +110,7 @@ void Game::draw() {
 
     // Draw traps (invisible)
     for (int i = 0; i < numTraps; ++i) {
-        mvprintw(trapY[i], trapX[i], "Q");
+        mvprintw(trapY[i], trapX[i], "");
     }
 
 
