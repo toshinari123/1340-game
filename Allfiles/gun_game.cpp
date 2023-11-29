@@ -180,9 +180,6 @@ int game_main(){
         mvwprintw(gameWindow, 8, 18, "%s", "                ");
         start_game = true;
     }
-    else if(pre_game_input == 'q' || pre_game_input == 'Q'){
-        ;
-    }
     else{
     while(pre_game_input != 's' || pre_game_input != 'S'){
         cin >> pre_game_input;
