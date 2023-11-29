@@ -10,13 +10,13 @@ hangman: hangman.o hangman_main.o
 	g++ $(FLAGS) $^ -lncurses -o $@
 
 gun_game.o: gun_game.cpp gun_game.h popup.h
-	g++ $(FLAGS) -c $<
+	g++ $(FLAGS) -c $< -lncurses
 
 popup.o: popup.cpp popup.h gun_game.h
-	g++ $(FLAGS) -c $<
+	g++ $(FLAGS) -c $< -lncurses
 
 main_gun_game.o: main_gun_game.cpp gun_game.o
-	g++ $(FLAGS) -c $<
+	g++ $(FLAGS) -c $< -lncurses
 
 
 main_gun_game: main_gun_game.o gun_game.o popup.o
