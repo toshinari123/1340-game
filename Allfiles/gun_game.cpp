@@ -175,9 +175,13 @@ int game_main(){
     char pre_game_input;
     cin >> pre_game_input;
     bool start_game = false;
+
     if(pre_game_input == 's' || pre_game_input == 'S'){
         mvwprintw(gameWindow, 8, 18, "%s", "                ");
         start_game = true;
+    }
+    else if(pre_game_input == 'q' || pre_game_input == 'Q'){
+        ;
     }
     else{
     while(pre_game_input != 's' || pre_game_input != 'S'){
