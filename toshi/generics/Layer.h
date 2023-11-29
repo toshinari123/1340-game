@@ -59,14 +59,14 @@ public:
         }
         string s, file, name;
         int posx, posy, i = 0;
-        f >> s;
+        /*f >> s;
         bool is_b;
         if (s == "is_braille") is_braille = true;
         else if (s == "is_not_braille") is_braille = false;
         else {
             errors -> push(L"Layer_load_scene: first line in scene file " + s2ws(p) + L" is not \"is braille\" or \"is not braille\"");
             return;
-        }
+        }*/
         while (f >> file >> name) {
             i++;
             if (file[0] == '#') {
