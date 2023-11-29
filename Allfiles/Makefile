@@ -26,6 +26,6 @@ maze: maze.cpp
 	g++ $(FLAGS) $^ -lncurses -o $@
 
 clean:
-	rm -f gun_game.o popup.o main_gun_game.o main_gun_game hangman.o hangman_main.0 hangman maze
+	rm -f gun_game.o popup.o main_gun_game.o main_gun_game hangman.o hangman_main.o hangman maze
 
 .PHONY: clean
