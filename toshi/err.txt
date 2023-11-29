@@ -142,4 +142,7 @@ frick 32 133
 HRLLIHLIHIH: 2 OK
 What1YEY LAYER DLET
 rrgr 32133
-aaaaaaaaaaaa32133sh: 1: ../Allfiles/maze: Exec format error
+aaaaaaaaaaaa32133make: *** No rule to make target 'hangman'.  Stop.
+make: *** No rule to make target 'main_gun_game'.  Stop.
+sh: 1: ./main_gun_game: not found
+sh: 1: ./main_gun_game: not found

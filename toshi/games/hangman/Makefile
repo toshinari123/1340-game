@@ -8,3 +8,8 @@ hangman.o: hangman.cpp hangman.h
 
 hangman: hangman.o main.o
 	g++ $(FLAGS) $^ -lncurses -o $@
+
+clean: 
+	rm -f *.o hangman
+
+.PHONY: clean
