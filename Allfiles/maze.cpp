@@ -134,7 +134,7 @@ void Game::getInput() {
         case 100:
             if (playerX < COLS - 1) playerX++;
             break;
-        case 'q':
+        case 'q' || 'Q':
             endwin(); 
             exit(0);
             break;
