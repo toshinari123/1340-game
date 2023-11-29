@@ -1,4 +1,4 @@
-FLAGS = -std=c++11 -g
+FLAGS = -std=c++11 -pthread -g
 
 OTHERS = out/main.o out/Main_Menu_Daemon.o out/Select_Game_Menu_Daemon.o out/misc.o
 
@@ -31,8 +31,7 @@ games/hangman/hangman: games/hangman/hangman.cpp games/hangman/hangman.h games/h
 game/maze/game: games/maze/rishigame.cpp
 	cd ./games/maze; make game; cd ../..
 
-#pls make a working clean
 clean:
-	rm *.o game
+	rm out/*; cd ./games/blackjack; rm -f blackjack.o; cd ../gun; make clean; cd ../hangman; make clean; cd ../maze; make clean; cd ../..
 
-.PHONY: clean blackjack gun hangman maze
+.PHONY: clean

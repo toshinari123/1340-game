@@ -1,4 +1,4 @@
-FLAGS = -pedantic-errors -std=c++11
+FLAGS = -std=c++11
 
 game.o: game.cpp game.h popup.h
 	g++ $(FLAGS) -c $<
