@@ -53,6 +53,7 @@ void Game:: playagain(){
     curs_set(0); // hide cursor
     start_color(); // enable color
     init_pair(1, COLOR_CYAN, COLOR_BLACK); // define color pair
+    curs_set(0);
 }
 
 void Game::initGame() {
@@ -72,6 +73,8 @@ void Game::initGame() {
         trapX[i] = rand() % COLS;
         trapY[i] = rand() % LINES;
     }
+
+    curs_set(0);
 }
 
 void Game::draw() {
@@ -88,7 +91,6 @@ void Game::draw() {
     // Draw traps (invisible)
     for (int i = 0; i < numTraps; ++i) {
         mvprintw(trapY[i], trapX[i], "Q");
-        
     }
 
 
