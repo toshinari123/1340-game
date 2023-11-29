@@ -79,15 +79,17 @@ void Game::draw() {
     setlocale(LC_ALL, "");
 
     // Draw player
-    mvprintw(playerY, playerX, "🤠");
+    mvprintw(playerY, playerX, "P");
 
     // Draw end point
-    mvprintw(endY, endX, "🚩");
+    mvprintw(endY, endX, "X");
 
     // Draw traps (invisible)
     for (int i = 0; i < numTraps; ++i) {
         mvprintw(trapY[i], trapX[i], "Q");
+        
     }
+
 
     refresh();
 }
