@@ -1,12 +1,351 @@
 rrgr 32133
 aaaaaaaaaaaa32133rrgr 32133
 aaaaaaaaaaaa32133rrgr 32133
-aaaaaaaaaaaa32133whyy Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"
-Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              
-eh
+aaaaaaaaaaaa32133whatscenes/Main_Menu.scnwhat[[position_point]][[position_point]]50:     ______       _       ____    ____  ________  
+50:   .' ___  |     / \     |_   \  /   _||_   __  | 
+50:  / .'   \_|    / _ \      |   \/   |    | |_ \_| 
+50:  | |   ____   / ___ \     | |\  /| |    |  _| _  
+50:  \ `.___]  |_/ /   \ \_  _| |_\/_| |_  _| |__/ | 
+50:   `._____.'|____| |____||_____||_____||________| 
+50:  _________  _____  _________  _____     ________ 
+50: |  _   _  ||_   _||  _   _  ||_   _|   |_   __  |
+50: |_/ | | \_|  | |  |_/ | | \_|  | |       | |_ \_|
+50:     | |      | |      | |      | |   _   |  _| _ 
+50:    _| |_    _| |_    _| |_    _| |__/ | _| |__/ |
+50:   |_____|  |_____|  |_____|  |________||________|
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+loaded: 5, 24
 aaaaaaaaaaaa32133
-name: ERRORS
-cont: Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"
-
-size: 133
-Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              Layer_load_scene: first line in scene file scenes/Main_Menu.scn is not "is braille" or "is not braille"                              
+name: Game_Title
+cont: 
+size: 588
+what[[position_point]][[position_point]]40: ╔═════════════════════════════════════╗
+40: ║                                     ║
+40: ║             START GAME              ║
+40: ║                                     ║
+40: ╚═════════════════════════════════════╝
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+aaaaaaaaaaaa32133
+name: Start_Game_Button
+cont: 
+size: 195
+what[[position_point]][[position_point]]40: ┌─────────────────────────────────────┐
+40: │                                     │
+40: │       CREDITS and INSTRUCTIONS      │
+40: │                                     │
+40: └─────────────────────────────────────┘
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+aaaaaaaaaaaa32133
+name: Credits_Button
+cont: 
+size: 195
+what[[position_point]][[position_point]]20:                    
+20:                    
+20:                    
+20:                    
+20: 0000000000000000000
+20: 0000000000000000000
+20: 0000000000000000000
+20: 0000000000000000000
+loaded: 0, 0
+aaaaaaaaaaaa32133
+name: Exit_Button
+cont: 
+size: 76
+[[position_point]][[position_point]]40: ┌─────────────────────────────────────┐
+40: │                                     │
+40: │             START GAME              │
+40: │                                     │
+40: └─────────────────────────────────────┘
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+[[position_point]][[position_point]]40: ╔═════════════════════════════════════╗
+40: ║                                     ║
+40: ║             START GAME              ║
+40: ║                                     ║
+40: ╚═════════════════════════════════════╝
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+sizes 1 1
+[[position_point]][[position_point]]40: ┌─────────────────────────────────────┐
+40: │                                     │
+40: │       CREDITS and INSTRUCTIONS      │
+40: │                                     │
+40: └─────────────────────────────────────┘
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+[[position_point]][[position_point]]40: ╔═════════════════════════════════════╗
+40: ║                                     ║
+40: ║       CREDITS and INSTRUCTIONS      ║
+40: ║                                     ║
+40: ╚═════════════════════════════════════╝
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+sizes 2 2
+[[position_point]][[position_point]]20:                    
+20:                    
+20:                    
+20:                    
+20: 0000000000000000000
+20: 0000000000000000000
+20: 0000000000000000000
+20: 0000000000000000000
+loaded: 0, 0
+[[position_point]][[position_point]]20:  _____   ___ _____ 
+20: | __\ \_/ / |_   _|
+20: | _| > , <| | | |  
+20: |___/_/ \_\_| |_|  
+20: 1111111111111111111
+20: 1111111111111111111
+20: 1111111111111111111
+20: 1111111111111111111
+loaded: 0, 0
+sizes 3 3
+frick 32 133
+HRLLIHLIHIH: 2 OK
+What1YEY LAYER DLET
+rrgr 32133
+aaaaaaaaaaaa32133make: *** No rule to make target 'hangman'.  Stop.
+make: *** No rule to make target 'main_gun_game'.  Stop.
+rrgr 32133
+aaaaaaaaaaaa32133whatscenes/Main_Menu.scnwhat[[position_point]][[position_point]]50:     ______       _       ____    ____  ________  
+50:   .' ___  |     / \     |_   \  /   _||_   __  | 
+50:  / .'   \_|    / _ \      |   \/   |    | |_ \_| 
+50:  | |   ____   / ___ \     | |\  /| |    |  _| _  
+50:  \ `.___]  |_/ /   \ \_  _| |_\/_| |_  _| |__/ | 
+50:   `._____.'|____| |____||_____||_____||________| 
+50:  _________  _____  _________  _____     ________ 
+50: |  _   _  ||_   _||  _   _  ||_   _|   |_   __  |
+50: |_/ | | \_|  | |  |_/ | | \_|  | |       | |_ \_|
+50:     | |      | |      | |      | |   _   |  _| _ 
+50:    _| |_    _| |_    _| |_    _| |__/ | _| |__/ |
+50:   |_____|  |_____|  |_____|  |________||________|
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+50: 1111111111111111111111111111111111111111111111111
+loaded: 5, 24
+aaaaaaaaaaaa32133
+name: Game_Title
+cont: 
+size: 588
+what[[position_point]][[position_point]]40: ╔═════════════════════════════════════╗
+40: ║                                     ║
+40: ║             START GAME              ║
+40: ║                                     ║
+40: ╚═════════════════════════════════════╝
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+aaaaaaaaaaaa32133
+name: Start_Game_Button
+cont: 
+size: 195
+what[[position_point]][[position_point]]40: ┌─────────────────────────────────────┐
+40: │                                     │
+40: │       CREDITS and INSTRUCTIONS      │
+40: │                                     │
+40: └─────────────────────────────────────┘
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+aaaaaaaaaaaa32133
+name: Credits_Button
+cont: 
+size: 195
+what[[position_point]][[position_point]]20:                    
+20:                    
+20:                    
+20:                    
+20: 0000000000000000000
+20: 0000000000000000000
+20: 0000000000000000000
+20: 0000000000000000000
+loaded: 0, 0
+aaaaaaaaaaaa32133
+name: Exit_Button
+cont: 
+size: 76
+[[position_point]][[position_point]]40: ┌─────────────────────────────────────┐
+40: │                                     │
+40: │             START GAME              │
+40: │                                     │
+40: └─────────────────────────────────────┘
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+[[position_point]][[position_point]]40: ╔═════════════════════════════════════╗
+40: ║                                     ║
+40: ║             START GAME              ║
+40: ║                                     ║
+40: ╚═════════════════════════════════════╝
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+sizes 1 1
+[[position_point]][[position_point]]40: ┌─────────────────────────────────────┐
+40: │                                     │
+40: │       CREDITS and INSTRUCTIONS      │
+40: │                                     │
+40: └─────────────────────────────────────┘
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+[[position_point]][[position_point]]40: ╔═════════════════════════════════════╗
+40: ║                                     ║
+40: ║       CREDITS and INSTRUCTIONS      ║
+40: ║                                     ║
+40: ╚═════════════════════════════════════╝
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+40: 111111111111111111111111111111111111111
+loaded: 2, 18
+sizes 2 2
+[[position_point]][[position_point]]20:                    
+20:                    
+20:                    
+20:                    
+20: 0000000000000000000
+20: 0000000000000000000
+20: 0000000000000000000
+20: 0000000000000000000
+loaded: 0, 0
+[[position_point]][[position_point]]20:  _____   ___ _____ 
+20: | __\ \_/ / |_   _|
+20: | _| > , <| | | |  
+20: |___/_/ \_\_| |_|  
+20: 1111111111111111111
+20: 1111111111111111111
+20: 1111111111111111111
+20: 1111111111111111111
+loaded: 0, 0
+sizes 3 3
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+frick 32 133
+HRLLIHLIHIH: 2 OK
+What1YEY LAYER DLET
+SDFGSDFGwaat: Main_Menu_Daemon
+stoepd
+HRLLIHLIHIH: 1 1O
