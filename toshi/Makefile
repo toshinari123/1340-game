@@ -1,23 +1,23 @@
-FLAGS = -std=c++11 -g
+FLAGS = -std=c++11 -pthread -g
 
 OTHERS = out/main.o out/Main_Menu_Daemon.o out/Select_Game_Menu_Daemon.o out/misc.o
 
 GAMES = games/blackjack/blackjack games/gun/main games/hangman/hangman game/maze/game
 
 game: $(OTHERS) $(GAMES)
-	g++ $(FLAGS) $(OTHERS) -o out/game -lncursesw
+	g++ $(FLAGS) $(OTHERS) -o out/game -lncurses
 
 out/misc.o: generics/misc.cpp generics/misc.h
-	g++ $(FLAGS) -o $@ -c $< -lncursesw
+	g++ $(FLAGS) -o $@ -c $< -lncurses
 
 out/main.o: main.cpp
-	g++ $(FLAGS) -o $@ -c $< -lncursesw
+	g++ $(FLAGS) -o $@ -c $< -lncurses
 
 out/Main_Menu_Daemon.o: daemons/Main_Menu_Daemon.cpp daemons/Main_Menu_Daemon.h
-	g++ $(FLAGS) -o $@ -c $< -lncursesw
+	g++ $(FLAGS) -o $@ -c $< -lncurses
 
 out/Select_Game_Menu_Daemon.o: daemons/Select_Game_Menu_Daemon.cpp daemons/Select_Game_Menu_Daemon.h
-	g++ $(FLAGS) -o $@ -c $< -lncursesw
+	g++ $(FLAGS) -o $@ -c $< -lncurses
 
 games/blackjack/blackjack: games/blackjack/blackjack.cpp
 	cd ./games/blackjack; g++ $(FLAGS) blackjack.cpp -o blackjack -lncurses; cd ../..
