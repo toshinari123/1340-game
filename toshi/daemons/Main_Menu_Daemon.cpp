@@ -2,14 +2,19 @@
 #include "Menu_Daemon.h"
 #include "Select_Game_Menu_Daemon.h"
 #include "Main_Menu_Daemon.h"
+#include "Game_Daemon.h"
 using namespace std;
 
 void Main_Menu_Daemon::postprocess(queue<wstring>* errors) {
     if (cur_index == 0) {
-        superdaemon -> subdaemon = new Select_Game_Menu_Daemon(daemon_id, layers,
+        /*superdaemon -> subdaemon = new Select_Game_Menu_Daemon(daemon_id, layers,
                 superdaemon -> keystrokes_to_pass_down,
                 superdaemon -> errors_from_down_and_self, superdaemon);
-        superdaemon -> subdaemon_name = "Select_Game_Menu_Daemon";
+        superdaemon -> subdaemon_name = "Select_Game_Menu_Daemon";*/
+        superdaemon -> subdaemon = new Game_Daemon(daemon_id, layers,
+                superdaemon -> keystrokes_to_pass_down,
+                superdaemon -> errors_from_down_and_self, superdaemon);
+        superdaemon -> subdaemon_name = "Game_Daemon";
     } else if (cur_index == 1) {
         //TODO
     } else {

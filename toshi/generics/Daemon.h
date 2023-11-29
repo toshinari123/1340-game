@@ -34,7 +34,7 @@ private:
         //spawn a new daemon maybe
     }
     //modify above 3 functions in your custom daemon
-    void run(queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up) {
+    virtual void run(queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up) {
         signal(SIGSEGV, daemon_handle_int);
         while (!preprocessed) {}
         while (daemon_to_terminate != daemon_id) {
@@ -92,7 +92,8 @@ public:
         keystrokes_to_pass_down = new queue<int>;
         errors_from_down_and_self = new queue<wstring>;
         for (int i = 0; i < num_layers; i++) {
-            Layer l(false, layers -> size());
+            wcerr << L"rrgr " << LINES << COLS << endl;
+            Layer l(false, layers -> size(), LINES, COLS);
             layers -> emplace_back(l);
         }
         daemon_thread = new thread(&Daemon::run, this, keystrokes_from_up, errors_to_pass_up);
@@ -149,11 +150,11 @@ public:
         }
         errors_from_down_and_self -> push(L"daemon " + to_wstring(daemon_id) + L" took too long to terminate");
     }*/
-    void redraw() {
+    void redraw(int lines, int cols) {
         for (int i = 0; i < num_layers; i++) {
-            layers -> at(starting_layer + i).redraw(errors_from_down_and_self);
+            layers -> at(starting_layer + i).redraw_with_params(errors_from_down_and_self, lines, cols);
         }
-        if (subdaemon_name != "no subdaemons") subdaemon -> redraw();
+        if (subdaemon_name != "no subdaemons") subdaemon -> redraw(lines, cols);
     }
     static void daemon_handle_int(int sig) {
         signal(SIGSEGV, SIG_IGN);

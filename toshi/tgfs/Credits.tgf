@@ -14,17 +14,17 @@
 
 [graphics]
                                                  
-                                                 
-                                                 
-                                                 
-                                                 
          C    R    E    D    I    T    S         
                                                  
+main menu: toshi                                 
+maze game: rishi                                 
+gun game: divya                                  
+hangman: ngoni                                   
+blackjack: figo                                  
                                                  
-                                                 
-                                                 
-                                                 
-                                                 
+                  instructions                   
+press escape to pause      press F5 to enter/exit
+press ? for control        debug mode            
 
 [opacity]
 1111111111111111111111111111111111111111111111111

@@ -73,6 +73,12 @@ private:
             (*layers)[starting_layer].remove(errors, "ERRORS");
         }
         s += error + L"\n";
+        int count = 0;
+        for (wchar_t c : s) count += (c == L'\n');
+        if (count > 3) {
+            while (s[0] != L'\n') s.erase(s.begin());
+            s.erase(s.begin());
+        }
         TGF_Object err(errors, 0, 0, COLS, s);
         err.optional_string = s;
         (*layers)[starting_layer].add(errors, "ERRORS", err);

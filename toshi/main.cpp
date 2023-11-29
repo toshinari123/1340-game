@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 #include <ncurses.h>
+#include <termios.h>
+#include <sys/ioctl.h>
 #include "generics/misc.h"
 #include "daemons/Info_Daemon.h"
 using namespace std;
@@ -7,7 +9,8 @@ using namespace std;
 vector<Layer>* layers;
 thread* render_thread;
 Daemon* info_daemon;
-atomic_bool stop;
+bool stop;
+bool nospace;
 atomic_int daemon_to_terminate;
 atomic_bool daemon_terminated;
 
@@ -23,6 +26,7 @@ void render(vector<Layer>* layers) {
                 if (!layers -> at(0).check(i, j)) s.insert(make_pair(i, j));
                 else {
                     wchar_t temp = layers -> at(0).screen[i][j];
+                    wcerr << temp;
                     if (prev_screen.find(i) == prev_screen.end() || prev_screen[i].find(j) == prev_screen[i].end() || prev_screen[i][j] != temp) {
                         cchar_t ptr;
                         setcchar(&ptr, &temp, 0, 0, nullptr);
@@ -42,7 +46,9 @@ void render(vector<Layer>* layers) {
                         if (prev_screen.find(p.first) == prev_screen.end() || prev_screen[p.first].find(p.second) == prev_screen[p.first].end() || prev_screen[p.first][p.second] != temp) {
                             cchar_t ptr;
                             setcchar(&ptr, &temp, 0, 0, nullptr);
-                            mvadd_wch(p.first, p.second, &ptr);
+                            if (nospace) {
+                                mvadd_wch(p.first, p.second, &ptr);
+                            }
                             temp_s.insert(p);
                             prev_screen[p.first][p.second] = temp;
                         }
@@ -64,6 +70,7 @@ void render(vector<Layer>* layers) {
         }
         this_thread::sleep_until(now + *(new chrono::duration<int, std::milli>(MILLISECONDS_PER_FRAME)));
     }
+    wcerr << L"stoepd" << endl;
 }
 
 void handle_int(int sig) {
@@ -76,31 +83,48 @@ void handle_int(int sig) {
     exit(0);
 }
 
-void handle_winch(int sig) {
-    signal(SIGWINCH, SIG_IGN);
-    endwin();
+void init() {
     initscr();
-    LINES = getmaxx(stdscr);
-	COLS = getmaxy(stdscr);
-    resizeterm(LINES, COLS);
-    refresh();
-    clear();
-    info_daemon -> redraw();
-    render_thread = new thread(render, layers);
-    signal(SIGWINCH, handle_winch);
-}
-
-int main() {
-    setlocale(LC_CTYPE, "");
-    initscr();
-    signal(SIGWINCH, handle_winch);
-    signal(SIGINT, handle_int);
     noecho();
     cbreak();
     nonl();
     curs_set(0);
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
+
+}
+
+void handle_winch(int sig) {
+    signal(SIGWINCH, SIG_IGN);
+    stop = true;
+    endwin();
+    /*init();
+    clear();
+    printw("press enter when you are done resizing.");
+    nodelay(stdscr, FALSE);
+    getch();
+    nodelay(stdscr, TRUE);*/
+    cout << "press enter when you are done resizing.";
+    string s;
+    getline(cin, s);
+    init();
+    winsize ws;
+    ioctl(0, TIOCGWINSZ, &ws);
+    resizeterm(ws.ws_row, ws.ws_col);
+    wcerr << LINES << L" " << COLS << endl;
+    wcerr << LINES << L" " << COLS << endl;
+    info_daemon -> redraw(LINES, COLS);
+    stop = false;
+    render_thread = new thread(render, layers);
+    signal(SIGWINCH, handle_winch);
+}
+
+int main() {
+    nospace = true;
+    setlocale(LC_CTYPE, "");
+    init();
+    signal(SIGWINCH, handle_winch);
+    signal(SIGINT, handle_int);
     queue<int>* keypress = new queue<int>;
     queue<wstring>* info_daemon_errors = new queue<wstring>;
     layers = new vector<Layer>;

@@ -1,0 +1,35 @@
+football Popular sport played worldwide, involving two teams aiming to score goals# easy
+basketball Fast-paced game with teams shooting hoops to score points# easy
+cricket Bat-and-ball game with teams taking turns to bat and bowl# easy
+tennis Racquet sport played between two or four players, with singles and doubles matches# easy
+rugby Contact sport with two teams competing to carry or kick the ball over the opponent's goal line# easy
+american-football High-contact sport with teams advancing a ball across the field to score touchdowns# easy
+baseball Bat-and-ball game where teams take turns fielding and batting# easy
+golf Precision sport where players use clubs to hit balls into a series of holes on a course# easy
+athletics Broad category encompassing track and field events like running, jumping, and throwing# easy
+swimming Competitive sport involving various swimming styles and distances# easy
+boxing Combat sport where participants throw punches at each other within a ring# easy
+formula-one-racing Premier auto racing competition, featuring high-speed, open-wheel cars# easy
+ice-hockey Fast-paced team sport played on ice, with players using sticks to shoot a puck into the opponent's goal# easy
+volleyball Team sport played with a ball over a net, aiming to score points by grounding the ball on the opponent's side# easy
+wrestling Physical sport involving grappling techniques to gain control over an opponent# easy
+badminton Racquet sport played with a shuttlecock, aiming to score points by landing it in the opponent's court# easy
+table-tennis Fast-paced sport played with paddles and a lightweight ball on a rectangular table# easy
+cycling Broad term for various forms of competitive and recreational biking# easy
+karate Martial art involving striking, kicking, and defensive techniques# easy
+gymnastics Athletic discipline encompassing various physical exercises and performances# easy
+surfing Water sport where participants ride waves on a surfboard# easy
+snowboarding Winter sport involving descending a snow-covered slope on a snowboard# easy
+skiing Winter sport where participants slide over snow on skis# easy
+sailing Sport or recreational activity involving the use of wind to propel a vessel# easy
+horse-racing Competitive sport where horses, ridden by jockeys, race against each other# easy
+field-hockey Team sport played on grass or turf, with players using sticks to hit a ball into the opponent's goal# easy
+skateboarding Action sport involving riding and performing tricks on a skateboard# easy
+esports Competitive video gaming, often organized into professional leagues and tournaments# easy
+climbing Sport involving ascending natural or artificial rock walls# moderate
+triathlon Multi-discipline sport combining swimming, cycling, and running# challenging
+archery Precision sport where participants shoot arrows at a target# moderate
+fencing Martial art of swordplay with different weapons# challenging
+lacrosse Team sport played with a small rubber ball and a long-handled stick# moderate
+kayaking Water sport using a small boat propelled by a double-bladed paddle# moderate
+pentathlon Multi-discipline sport featuring five different events# challenging

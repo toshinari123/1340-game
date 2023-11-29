@@ -9,6 +9,7 @@ using namespace std;
 
 class Layer {
 private:
+    int t_LINES, t_COLS;
 public:
     map<string, TGF_Object> objs;
     bool is_braille;
@@ -17,9 +18,9 @@ public:
     int layer_id;
     vector<string> optional_keywords;
     map<string, vector<string>> optional_lists;
-    Layer(bool is_b, int layer_id_in) {
-        is_braille = is_b;
-        layer_id = layer_id_in;
+    Layer(bool is_b, int layer_id_in, int linesss, int colsss) : 
+        is_braille(is_b), layer_id(layer_id_in), t_LINES(linesss), t_COLS(colsss) {
+        wcerr << L"aaaaaaaaaaaa" << t_LINES << t_COLS;
     }
     Layer(const Layer &l) {
         objs = l.objs;
@@ -27,6 +28,8 @@ public:
         count = l.count;
         screen = l.screen;
         layer_id = l.layer_id;
+        t_LINES = l.t_LINES;
+        t_COLS = l.t_COLS;
     }
     Layer& operator=(const Layer& other) {
         if (this != &other) {
@@ -35,6 +38,8 @@ public:
             count = other.count;
             screen = other.screen;
             layer_id = other.layer_id;
+        t_LINES = other.t_LINES;
+        t_COLS = other.t_COLS;
         }
         return *this;
     }
@@ -98,8 +103,9 @@ public:
         if (objs.find(name) != objs.end()) {
             errors -> push(L"Layer_add: duplicate name in layer");
         } else {
-            int sx = int(double(LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
-            int sy = int(double(COLS) * obj.aligny) + obj.offsety - obj.pp_col;
+        wcerr << L"aaaaaaaaaaaa" << t_LINES << t_COLS;
+            int sx = int(double(t_LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
+            int sy = int(double(t_COLS) * obj.aligny) + obj.offsety - obj.pp_col;
             wcerr << endl << L"name: " << s2ws(name) << endl << L"cont: " << obj.optional_string << endl << L"size: " << obj.graphics.size() << endl;
             for (int i = 0; i < obj.bb_rows; i++) {
                 for (int j = 0; j < obj.bb_cols; j++) {
@@ -126,8 +132,8 @@ public:
             errors -> push(L"Layer_remove: cannot find \"" + s2ws(name) + L"\" in layer " + to_wstring(layer_id) + L" to remove");
         } else {
             auto obj = objs.at(name);
-            int sx = int(double(LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
-            int sy = int(double(COLS) * obj.aligny) + obj.offsety - obj.pp_col;
+            int sx = int(double(t_LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
+            int sy = int(double(t_COLS) * obj.aligny) + obj.offsety - obj.pp_col;
             for (int i = 0; i < obj.bb_rows; i++) {
                 for (int j = 0; j < obj.bb_cols; j++) {
                     if (i * obj.bb_cols + j >= obj.opacity.size()) {
@@ -156,13 +162,20 @@ public:
         }*/
     }
     //TODO: make another modify that takes in a function as input
+    void redraw_with_params(queue<wstring>* errors, int lines, int cols) {
+        wcerr << L"what are you doing";
+        t_LINES = lines, t_COLS = cols;
+        wcerr << L"redrawing layer " << layer_id << L":" << lines << L" " << cols << endl;
+        redraw(errors);
+    }
     void redraw(queue<wstring>* errors) {
         screen.clear();
         count.clear();
+        wcerr << L"frick " << t_LINES << L" " << t_COLS << endl;
         for (auto kv : objs) {
             TGF_Object obj = kv.second;
-            int sx = int(double(LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
-            int sy = int(double(COLS) * obj.aligny) + obj.offsety - obj.pp_col;
+            int sx = int(double(t_LINES) * obj.alignx) + obj.offsetx - obj.pp_row;
+            int sy = int(double(t_COLS) * obj.aligny) + obj.offsety - obj.pp_col;
             for (int i = 0; i < obj.bb_rows; i++) {
                 for (int j = 0; j < obj.bb_cols; j++) {
                     if (obj.opacity[i * obj.bb_cols + j]) {

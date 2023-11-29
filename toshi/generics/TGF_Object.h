@@ -259,13 +259,21 @@ public:
         int row = 0;
         wstringstream ss2(s);
         while (getline(ss2, line)) {
-            for (int i = 0; i < line.size() / width; i++) {
-                for (int j = 0; j < ((i == (line.size() / width - 1)) ? line.size() % width : width); j++) {
-                    graphics[(x + row) * bb_cols + y + j] = line[i * bb_cols + j];
+            wcerr << L"whyy " << line << endl;
+            for (int i = 0; i <= line.size() / width; i++) {
+                for (int j = 0; j < ((i == (line.size() / width)) ? line.size() % width : width); j++) {
+                    graphics[row * width + j] = line[i * width + j];
                 }
                 row++;
             }
         }
+        for (int i = 0; i < bb_rows; i++) {
+            for (int j = 0; j < bb_cols; j++) {
+                wcerr << graphics[i * bb_cols + j];
+            }
+            wcerr << endl;
+        }
+        wcerr << L"eh\n";
         va_end(vl);
     }
     ~TGF_Object() {
