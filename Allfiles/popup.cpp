@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "popup.h"
-#include "game.h"
+#include "gun_game.h"
 #include <iostream>
 
 using namespace std;

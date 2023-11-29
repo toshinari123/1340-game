@@ -308,4 +308,4 @@ int game_main(){
     getch();
     endwin();
 return 0;
-};
+}

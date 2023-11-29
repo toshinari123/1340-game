@@ -1,6 +1,6 @@
 FLAGS = -pedantic-errors -std=c++11
 
-game: rishigame.cpp
+rishi_game: rishigame.cpp
 	g++ $(FLAGS) $^ -lncurses -o $@
 
 blackjack: blackjack.cpp
