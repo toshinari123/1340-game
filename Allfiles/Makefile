@@ -18,7 +18,6 @@ popup.o: popup.cpp popup.h gun_game.h
 main_gun_game.o: main_gun_game.cpp gun_game.o
 	g++ $(FLAGS) -c $< -lncurses
 
-
 main_gun_game: main_gun_game.o gun_game.o popup.o
 	g++ $(FLAGS) $^ -o $@ -lncurses
 
