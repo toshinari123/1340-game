@@ -6,6 +6,7 @@
 #chmod u+x maze
 #toshi/out/game 2> err.txt
 
+mkdir out
 make clean
 make game
 chmod u+x out/game
