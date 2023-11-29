@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 rrgr 32133
 aaaaaaaaaaaa32133rrgr 32133
 aaaaaaaaaaaa32133rrgr 32133
@@ -291,3 +292,6 @@ What1YEY LAYER DLET
 SDFGSDFGwaat: Main_Menu_Daemon
 stoepdHRLLIHLIHIH: 
 11 
+=======
+./run.sh: line 12: out/game: No such file or directory
+>>>>>>> 13f993a2100dd87ead8efb001693a98625b5ab3e
