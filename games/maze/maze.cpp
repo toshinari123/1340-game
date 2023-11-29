@@ -83,10 +83,6 @@ void Game::initGame() {
     endX = COLS - 1;
     endY = LINES - 1;
 
-    system("cd ../Allfiles");
-    system("make hangman");
-    system("make main_gun_game");
-    system("make blackjack");
     minigames[0]= "games/hangman/hangman";
     minigames[1]= "games/gun/main";
     minigames[2]= "games/blackjack/blackjack";
