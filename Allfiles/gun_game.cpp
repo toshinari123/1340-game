@@ -154,6 +154,7 @@ int game_main(){
     mvwprintw(instructionsWindow, 13, 1, "%s", "10 lives and you will lose one");
     mvwprintw(instructionsWindow, 14, 1, "%s", "life everytime you miss the ");
     mvwprintw(instructionsWindow, 15, 1, "%s", "target.");
+    mvwprintw(instructionsWindow, 18, 1, "%s", "Score 30 points to win!");
 
     //refresh all windows to display
     wrefresh(gameWindow);
@@ -177,6 +178,7 @@ int game_main(){
     if(pre_game_input == 's' || pre_game_input == 'S'){
         mvwprintw(gameWindow, 8, 18, "%s", "                ");
         start_game = true;
+    }
     else{
     while(pre_game_input != 's' || pre_game_input != 'S'){
         cin >> pre_game_input;
@@ -306,6 +308,9 @@ int game_main(){
     wrefresh(gameWindow);
 
     if(input == 'q' || input == 'Q'){
+        break;
+    }
+    else if (score>=30){
         break;
     }
     flushinp();
