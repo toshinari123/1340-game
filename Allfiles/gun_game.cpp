@@ -178,6 +178,14 @@ int game_main(){
         mvwprintw(gameWindow, 8, 18, "%s", "                ");
         start_game = true;
     }
+    while(pre_game_input != 's' || pre_game_input != 'S'){
+        cin >> pre_game_input;
+        if(pre_game_input == 's' || pre_game_input == 'S'){
+        mvwprintw(gameWindow, 8, 18, "%s", "                ");
+        start_game = true;
+        break;
+    }
+    }
 
     while(start_game){
         //score window updates
