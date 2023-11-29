@@ -184,7 +184,10 @@ int main(){
     bool start_game = false;
 
     if(pre_game_input == 'g' || pre_game_input == 'G'){
-        mvwprintw(gameWindow, 8, 18, "%s", "                ");
+        mvwprintw(gameWindow, 6, 9, "%s", "                                 ");
+        mvwprintw(gameWindow, 7, 9, "%s", "                                   ");
+        mvwprintw(gameWindow, 8, 9, "%s", "                                  ");
+        mvwprintw(gameWindow, 9, 9, "%s", "                                  ");
         start_game = true;
     }
     else{
