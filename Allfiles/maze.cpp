@@ -23,6 +23,7 @@ private:
     vector<int>showX;
     vector<int>showY;
     string minigames[3];
+    void window();
     void initGame();
     void draw();
     void getInput();
@@ -33,6 +34,7 @@ private:
     void showtrap();
 };
 
+
 Game::Game() {
     srand(time(0));
     initscr(); // initialize ncurses
@@ -42,7 +44,23 @@ Game::Game() {
     curs_set(0); // hide cursor
     start_color(); // enable color
     init_pair(1, COLOR_CYAN, COLOR_BLACK); // define color pair
+    window();
     initGame();
+}
+
+void Game::window(){
+    WINDOW* window= newwin(LINES,COLS, 5, COLS/2);
+    printw("WELCOME TO THE MAZE OF MINIGAMES!\n");
+    printw("Controls:\n");
+    printw("Movement: Arrow Keys\n");
+    printw("Goal: Get from the top left corner of the screen to the bottom left\n");
+    printw("Be careful! If you hit a trap you have to play a minigame and will be sent to the begining\n");
+    printw("Good Luck! Press Any Key to continue");
+    getch();
+    wrefresh(window);
+    refresh();
+    delwin(window);       
+
 }
 
 void Game:: playagain(){
