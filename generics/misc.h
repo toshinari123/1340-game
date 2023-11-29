@@ -6,6 +6,7 @@
 using namespace std;
 
 extern bool stop;
+extern bool running_game;
 
 wstring s2ws(const string& str);
 

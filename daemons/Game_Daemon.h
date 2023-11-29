@@ -9,8 +9,9 @@ using namespace std;
 class Game_Daemon : public Daemon {
 private:
     void run(queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up) {
-        //stop = true;
+        running_game = true;
         system("./games/maze/game");
+        running_game = false;
         //system("cd ../Allfiles && make clean && make maze && ./maze");
             superdaemon -> subdaemon = new Main_Menu_Daemon(daemon_id, layers,
                 superdaemon -> keystrokes_to_pass_down,

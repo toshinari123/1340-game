@@ -20,6 +20,7 @@ thread* render_thread;
 Daemon* info_daemon;
 bool stop;
 bool nospace;
+bool running_game;
 atomic_int daemon_to_terminate;
 atomic_bool daemon_terminated;
 
@@ -140,7 +141,8 @@ int main() {
     info_daemon = new Info_Daemon(1, layers, 2, keypress, info_daemon_errors);
     render_thread = new thread(render, layers);
     while (true) {
-        int temp = getch();
+        int temp = ERR;
+        if (!running_game) temp = getch();
         if (temp != ERR) keypress -> push(temp);
         if (!info_daemon_errors -> empty()) {
             stop = true;
