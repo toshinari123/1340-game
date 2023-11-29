@@ -20,7 +20,7 @@ int popup_main(){
     mvwprintw(popUp, 10, 36, "%s", "GAME OVER");
     mvwprintw(popUp, 11, 30 , "%s", "Your score was : ");
     mvwprintw(popUp, 11, 47, "%i", score);
-    mvwprintw(popUp, 12, 25 , "%s", "PRESS Q TO GO BACK TO THE MAIN GAME");
+    mvwprintw(popUp, 12, 25 , "%s", "PRESS Q TO GO BACK TO THE MAZE");
 
     wrefresh(popUp);
     char input;
