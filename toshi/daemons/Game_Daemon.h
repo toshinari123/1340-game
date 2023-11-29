@@ -10,7 +10,7 @@ private:
     void run(queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up) {
         //stop = true;
         //system("./games/maze/game");
-        system("../Allfiles/maze");
+        system("cd ../Allfiles && make clean && make maze && ./maze");
     }
 public:
     Game_Daemon(int daemon_id_in, vector<Layer>* layers, 
