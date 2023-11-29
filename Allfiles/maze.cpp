@@ -50,11 +50,15 @@ Game::Game() {
 
 void Game::window(){
     WINDOW* window= newwin(LINES,COLS, 0, COLS/2);
-    printw("WELCOME TO THE MAZE OF MINIGAMES!\n");
+    printw("WELCOME TO THE MAZE OF MINIGAMES!\n\n");
     printw("Controls:\n");
-    printw("Movement: Arrow Keys\n");
-    printw("Goal: Get from the top left corner of the screen to the bottom left\n");
-    printw("Be careful! If you hit a trap you have to play a minigame and will be sent to the begining\n");
+    printw("UP:    W key\n");
+    printw("DOWN:  S key\n");
+    printw("LEFT:  A key\n");
+    printw("RIGHT: D key\n");
+    printw("Quit:  Q\n\n");
+    printw("Goal: Get from the top left corner of the screen to the bottom left\n\n");
+    printw("Be careful! If you hit a trap you have to play a minigame and will be sent to the begining\n\n");
     printw("Good Luck! Press Any Key to continue");
     getch();
     wrefresh(window);
@@ -66,12 +70,11 @@ void Game::window(){
 void Game:: playagain(){
     initscr(); // initialize ncurses
     raw(); // disable line buffering
+    curs_set(0); // hide cursor
     keypad(stdscr, TRUE); // enable special key input
     noecho(); // don't display input
-    curs_set(0); // hide cursor
     start_color(); // enable color
     init_pair(1, COLOR_CYAN, COLOR_BLACK); // define color pair
-    curs_set(0);
 }
 
 void Game::initGame() {
@@ -120,16 +123,16 @@ void Game::draw() {
 void Game::getInput() {
     int key = getch();
     switch (key) {
-        case KEY_UP:
+        case 119:
             if (playerY > 0) playerY--;
             break;
-        case KEY_DOWN:
+        case 115:
             if (playerY < LINES - 1) playerY++;
             break;
-        case KEY_LEFT:
+        case 97:
             if (playerX > 0) playerX--;
             break;
-        case KEY_RIGHT:
+        case 100:
             if (playerX < COLS - 1) playerX++;
             break;
         case 'q':
