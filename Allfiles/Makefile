@@ -22,10 +22,13 @@ main_gun_game.o: main_gun_game.cpp gun_game.o
 main_gun_game: main_gun_game.o gun_game.o popup.o
 	g++ $(FLAGS) $^ -o $@ -lncurses
 
+blackjack: blackjack_nc.cpp
+	g++ $(FLAGS) $^ -lncurses -o $@
+
 maze: maze.cpp
 	g++ $(FLAGS) $^ -lncurses -o $@
 
 clean:
-	rm -f gun_game.o popup.o main_gun_game.o main_gun_game hangman.o hangman_main.o hangman maze
+	rm -f  *.o main_gun_game hangman maze blackjack
 
 .PHONY: clean

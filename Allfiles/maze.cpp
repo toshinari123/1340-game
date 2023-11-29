@@ -49,7 +49,7 @@ Game::Game() {
 }
 
 void Game::window(){
-    WINDOW* window= newwin(LINES,COLS, 5, COLS/2);
+    WINDOW* window= newwin(LINES,COLS, 0, COLS/2);
     printw("WELCOME TO THE MAZE OF MINIGAMES!\n");
     printw("Controls:\n");
     printw("Movement: Arrow Keys\n");
