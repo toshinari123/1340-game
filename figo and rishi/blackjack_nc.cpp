@@ -162,7 +162,7 @@ int main()
 
     printw("Welcome to Blackjack. Blackjack pays 3:2. Insurance pays " "2:1.\nDealer stands on 17.\n");
 
-    while (true) {
+    while (chips<=2500) {
         vector<int> deck, dealer, bets;
         vector<vector<int>> hands;
         printw("\n\nChips: %d", chips);
@@ -170,7 +170,8 @@ int main()
         refresh();
         scanw(format, &numhands);
         if (numhands * 10 > chips) {
-            printw("You do not have enough chips.\n");
+            printw("You do not have enough chips. Here are 500 chips. Try Again!\n");
+            chips += 500;
             continue;
         }
         if (numhands < 1 || chips < 10)
@@ -186,6 +187,7 @@ int main()
             }
             bets.push_back(bet);
             chips -= bet;
+
         }
 
 
@@ -293,9 +295,11 @@ int main()
                 chips += bets[i];
             }
         }
+
     }
 
     printw("Thank you for playing!\nTotal score: %d\nCash return: $%.2f\n", chips, (double)chips/100);
+    endwin();
 
     return 0;
 }
