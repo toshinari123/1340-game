@@ -1,4 +1,3 @@
-#include <bits/stdc++.h>
 #include "Menu_Daemon.h"
 #include "Select_Game_Menu_Daemon.h"
 #include "Main_Menu_Daemon.h"

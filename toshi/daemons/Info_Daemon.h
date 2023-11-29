@@ -1,7 +1,6 @@
 #ifndef ERROR_DAEMON_H
 #define ERROR_DAEMON_H
 
-#include <bits/stdc++.h>
 #include "../generics/Daemon.h"
 #include "Main_Menu_Daemon.h"
 using namespace std;

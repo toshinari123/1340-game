@@ -1,4 +1,13 @@
-#include <bits/stdc++.h>
+#include <set>
+#include <atomic>
+#include <vector>
+#include <string>
+#include <queue>
+#include <chrono>
+#include <thread>
+#include <iostream>
+#include <sstream>
+#include <signal.h>
 #include <ncurses.h>
 #include <termios.h>
 #include <sys/ioctl.h>

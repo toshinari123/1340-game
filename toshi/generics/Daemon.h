@@ -1,7 +1,13 @@
 #ifndef DAEMON_H
 #define DAEMON_H
 
-#include <bits/stdc++.h>
+#include <vector>
+#include <queue>
+#include <thread>
+#include <atomic>
+#include <string>
+#include <signal.h>
+#include <iostream>
 #include "Layer.h"
 using namespace std;
 

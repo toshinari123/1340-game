@@ -1,7 +1,10 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include <bits/stdc++.h>
+#include <vector>
+#include <queue>
+#include <string>
+#include <map>
 #include <ncurses.h>
 #include "TGF_Object.h"
 #include "misc.h"

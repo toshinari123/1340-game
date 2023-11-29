@@ -1,7 +1,6 @@
 #ifndef MENU_DAEMON_H
 #define MENU_DAEMON_H
 
-#include <bits/stdc++.h>
 #include "../generics/Daemon.h"
 #include "../generics/misc.h"
 using namespace std;

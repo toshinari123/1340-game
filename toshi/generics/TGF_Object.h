@@ -1,7 +1,11 @@
 #ifndef TGF_OBJECT_H
 #define TGF_OBJECT_H
 
-#include <bits/stdc++.h>
+#include <vector>
+#include <queue>
+#include <string>
+#include <fstream>
+#include <sstream>
 #include "misc.h"
 using namespace std;
 
