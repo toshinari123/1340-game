@@ -86,11 +86,10 @@ void Game::initGame() {
     system("cd ../Allfiles");
     system("make hangman");
     system("make main_gun_game");
-    //system(make blackjack);
+    system("make blackjack");
     minigames[0]= "./hangman";
     minigames[1]= "./main_gun_game";
-    //minigames[2] = "./blackjack";
-    minigames[2]= "./main_gun_game";
+    minigames[2] = "./blackjack";
 
     for (int i = 0; i < numTraps; ++i) {
         trapX[i] = rand() % COLS;
