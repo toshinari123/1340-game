@@ -13,18 +13,26 @@
 #include <random>
 using namespace std;
 
+
 vector<WordInfo> currentThemeData;
 string previousTheme;
 const int THEME_LINE = 4;
 const int NOTE_LINE = 5;
 const int HINT_LINE = 7;
-    const int DIFFICULTY_LINE = 9;
-    const int BLUNDERS_SCORE_LINE = 11;
-    const int PROGRESS_LINE = 13;
-    const int MESSAGE_LINE = 24;
-    const int GUESS_PROMPT_LINE = 22;
-    const int HANGING_LINE = 26;
+const int DIFFICULTY_LINE = 9;
+const int BLUNDERS_SCORE_LINE = 11;
+const int PROGRESS_LINE = 13;
+const int MESSAGE_LINE = 24;
+const int GUESS_PROMPT_LINE = 22;
+const int HANGING_LINE = 26;
 
+
+/*
+  Initializes the ncurses environment, disables line buffering,
+  enables special keys, and sets up color pairs for later use.
+  Input: None
+  Output: None
+*/
 void initialize_ncurses() {
     initscr(); // Initialize the ncurses environment
     raw();     // Disable line buffering
@@ -35,6 +43,11 @@ void initialize_ncurses() {
 }
 
 
+/*
+Displays a welcome message for the Hangman Adventure game.
+Input: None
+Output: None
+*/
 void welcome() {
     printw("***********************************\n");
     printw("*  Welcome to Hangman Adventure!  *\n");
@@ -44,6 +57,9 @@ void welcome() {
 }
 
 
+// Function to display game instructions and prompt the player to start the game
+// Input: None
+// Output: Returns true if the player is ready to play, false otherwise
 bool display_instructions(){
     printw("Can you save your friend from a dire fate?\n");
     printw("\n");
@@ -87,9 +103,12 @@ bool display_instructions(){
 }
 
 
-//Functions from this point are referenced by the start game function
+// Function to display the hangman's gallows and the hanging person based on the number of errors
+// Input: errors - the number of errors made in the game
+// Output: None
 void hang(int errors) {
     if (errors == 0) {
+        // Initial state: no errors
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("                | \n");
@@ -98,6 +117,7 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 1) {
+        // 1 error: display head
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -106,6 +126,7 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 2) {
+        // 2 errors: display head and body
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -114,6 +135,7 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 3) {
+        // 3 errors: display head, body, and left arm
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -122,6 +144,7 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 4) {
+        // 4 errors: display head, body, both arms
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -130,6 +153,7 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 5) {
+        // 5 errors: display head, body, both arms, and left leg
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -138,6 +162,7 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 6) {
+        // 6 errors: display head, body, both arms, and both legs
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -149,7 +174,12 @@ void hang(int errors) {
 }
 
 
+// Function to display the progress of the game, including wrong guesses and the current state of the secret word
+// Input: wrong_guesses - A vector containing the wrong guesses made by the player
+//        solution - The secret word of the game
+// Output: None
 void show_progress(vector<char> wrong_guesses, string solution) {
+    // Display wrong guesses
     printw("\nWrong Guesses: \n");
     for (int i = 0; i < wrong_guesses.size(); i++) {
     attron(A_BOLD | COLOR_PAIR(1));
@@ -175,6 +205,9 @@ void show_progress(vector<char> wrong_guesses, string solution) {
 }
 
 
+// Function to display the correct word after a wrong guess
+// Input: secretword - The correct word that was guessed incorrectly
+// Output: None
 void show_word_after_wrong_guess(string secretword){
     move(GUESS_PROMPT_LINE, 0);
     clrtoeol();
@@ -202,6 +235,9 @@ void show_word_after_wrong_guess(string secretword){
 }
 
 
+// Function to display the correct word after a correct guess
+// Input: secretword - The correct word that was guessed correctly
+// Output: None
 void show_word_after_correct_guess(string secretword){
     move(GUESS_PROMPT_LINE, 0);
     clrtoeol();
@@ -229,12 +265,18 @@ void show_word_after_correct_guess(string secretword){
 }
 
 
+// Function to display the score
+// Input: score - The player's score
+// Output: None
 void show_score(int score) {
     printw("Score: %d\n", score);
     return;
 }
 
 
+// Function to print an attention-grabbing note
+// Input: None
+// Output: None
 void print_attention_grabbing_note() {
     attron(A_BOLD | A_UNDERLINE | COLOR_PAIR(1));
     printw("Note: Some names may consist of two or more words connected by hyphens.\n");
@@ -242,11 +284,16 @@ void print_attention_grabbing_note() {
 }
 
 
+// Clean up and close the ncurses environment
 void cleanup_ncurses() {
     endwin(); // Clean up and close the ncurses environment
 }
 
-
+// Function to end the game and display the final score and options to play again
+// Input: score - The player's score
+//        errors - The number of errors made by the player
+//        totalWords - The total number of words in the game
+// Output: None
 void end_game(int score, int errors, int totalWords) {
     if (errors == 6) {
         move(34,0);
@@ -328,7 +375,9 @@ void end_game(int score, int errors, int totalWords) {
 }
 
 
-
+// Function to choose a random theme and load the corresponding word data
+// Input: None
+// Output: None
 void choose_theme(){
     string themes[10] = {"Animals", "Movies", "Countries", "Sports", "Food", "Landmarks", "Science", "Music", "Occupations", "Legends"};
 
@@ -356,6 +405,9 @@ void choose_theme(){
 }
 
 
+// Function to start the game
+// Input: None
+// Output: None
 void start_game() {
     // Check if there is a current theme, otherwise choose a new one
     if (currentThemeData.empty()) {
