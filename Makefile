@@ -2,7 +2,7 @@ FLAGS = -std=c++11 -pthread -g
 
 OTHERS = out/main.o out/Main_Menu_Daemon.o out/Select_Game_Menu_Daemon.o out/misc.o
 
-GAMES = games/blackjack/blackjack games/gun/main games/hangman/hangman game/maze/game
+GAMES = games/blackjack/blackjack games/gun/main_gun_game games/hangman/hangman game/maze/game
 
 game: $(OTHERS) $(GAMES)
 	g++ $(FLAGS) $(OTHERS) -o out/game -lncursesw
@@ -22,8 +22,11 @@ out/Select_Game_Menu_Daemon.o: daemons/Select_Game_Menu_Daemon.cpp daemons/Selec
 games/blackjack/blackjack: games/blackjack/blackjack.cpp
 	cd ./games/blackjack; g++ $(FLAGS) blackjack.cpp -o blackjack -lncurses; cd ../..
 
-games/gun/main: games/gun/game.cpp games/gun/main.cpp games/gun/popup.cpp
-	cd ./games/gun; make main; cd ../..
+#games/gun/main: games/gun/game.cpp games/gun/main.cpp games/gun/popup.cpp
+#	cd ./games/gun; make main; cd ../..
+
+games/gun/main_gun_game: games/gun/main_gun_game.cpp games/gun/gun_game.h
+	cd ./games/gun; make main_gun_game; cd ../..
 
 games/hangman/hangman: games/hangman/hangman.cpp games/hangman/hangman.h games/hangman/main.cpp
 	cd ./games/hangman; make hangman; cd ../..
