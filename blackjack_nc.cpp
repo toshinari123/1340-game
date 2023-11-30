@@ -164,7 +164,7 @@ int main()
     string c;
 
     printw("Welcome to Blackjack. Read the following GAME RULES:\n\n");
-    printw("1. The objective of this game is to have a hand value as close to 21 as possible without exceeding 21. A hand's value is the sum of the card values. Get 2500 chips to win! (You start with 1000 chips)\n\n");
+    printw("1. The objective of this game is to have a hand value as close to 21 as possible without exceeding 21. A hand's value is the sum of the card values. Get 1500 chips to win! (You start with 1000 chips)\n\n");
     printw("2. Cards from 2 to 10 are worth their face value. Kings (K), Queens (Q), and Jacks (J) are each worth 10. Aces can be worth either 1 or 11, depending on which value benefits the player or dealer.\n\n");
     printw("3. At the start of each round, the dealer gives two cards to each player and two to themselves.\n\n");
     printw("4. If a player's first two cards are an Ace and a 10-value card, this is a Blackjack and typically pays out at 3:2, unless the dealer also has a Blackjack which results in a push (tie).\n\n");
@@ -179,7 +179,7 @@ int main()
     clear();  // Clear the screen
     refresh();  // Update the screen with the new output
 
-    while (chips<=2500) {
+    while (chips<=1500) {
         vector<int> deck, dealer, bets;
         vector<vector<int>> hands;
         int a;

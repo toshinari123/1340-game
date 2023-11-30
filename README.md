@@ -92,7 +92,7 @@ Score 30 points to win!
 
 ## Blackjack
 
-1. The objective of this game is to have a hand value as close to 21 as possible without exceeding 21. A hand's value is the sum of the card values. Get 2500 chips to win! (You start with 1000 chips)
+1. The objective of this game is to have a hand value as close to 21 as possible without exceeding 21. A hand's value is the sum of the card values. Get 1500 chips to win! (You start with 1000 chips)
 
 2. Cards from 2 to 10 are worth their face value. Kings (K), Queens (Q), and Jacks (J) are each worth 10. Aces can be worth either 1 or 11, depending on which value benefits the player or dealer.
 
