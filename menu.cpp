@@ -692,6 +692,18 @@ private:
         }
         errors_from_down_and_self -> push(L"daemon " + to_wstring(daemon_id) + L" took too long to terminate");
     }*/
+	virtual bool process_keystroke(queue<wstring>* errors, int key) {
+        int smth = 0;
+        if (key == smth) {
+            //add cases
+            return false;
+        } else {
+            //modify this if necessary
+            key_to_pass_down = key;
+            return true;
+        }
+        return true;
+    }
     virtual bool process_error(queue<wstring>* errors, wstring error) {
         if (error.find(L"!!!END!!!") != string::npos) {
             delete subdaemon;

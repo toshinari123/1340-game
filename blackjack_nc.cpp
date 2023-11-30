@@ -8,6 +8,8 @@
 #include <ncurses.h>
 #include <cstring>
 #include <string>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 const bool isfacecard(const int &);
@@ -366,7 +368,7 @@ int main()
     }
 
     printw("Thank you for playing!\nTotal score: %d\nCash return: $%.2f\n", chips, (double)chips/100);
-    usleep(1000000);
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     endwin();
 
     return 0;
