@@ -19,7 +19,7 @@ NOTE: WHILST THESE WERE THE SPECIALISED TASKS ALLOCATED, EACH OF US HAS WORKED E
 
 1. In your terminal run the command "make menu"
 2. Type "./menu"
-3. Before playing again we reconmmend running the command "make clean" 
+3. Before playing again we reconmmend running the command "make clean" and "clear" in the terminal
 
 ## Overall Gameplay:
 Maze of minigames is a simple game in which the player needs to reach from one end of the board to the other (marked by an 'X). However, if the player runs into a hidden trap while playing the maze, they will be forced to play a random minigame and can only return to the maze once it's completed. The player will be at the begining and will restart the maze, however they will now know where the traps they have already stepped on now.
