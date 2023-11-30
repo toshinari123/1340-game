@@ -35,9 +35,9 @@ In-code documentation - check files
 1. In your terminal run the command "make menu"
 2. Type "./menu"
 3. Before playing again we reconmmend running the command "make clean" and "clear" in the terminal
-4. To play either Blackjack, Gun Game or Hangman individually, run the command: 
-   "make blackjack"
-   "make main_gun_game"
+4. To play either Blackjack, Gun Game or Hangman individually, run the command: <br>
+   "make blackjack" <br>
+   "make main_gun_game" <br>
    "make hangman"
 
 ## Overall Gameplay:
