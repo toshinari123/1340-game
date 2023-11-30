@@ -49,13 +49,13 @@ How to Play:
 
 ### Gun Game
 
-GAME MANUAL:
+Controls:
 Start : G
 Move Pistol up : W
 Move Pistol down : S
 Shoot : SpaceBar
 Quit : Q
------------------------------
+
 HOW TO PLAY:
 Shoot the monsters with the pistol. Your score increments by 3 everytime you hit a monster. You initially have 10 lives and you will lose on life everytime you miss the target.
 
