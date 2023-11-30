@@ -85,7 +85,7 @@ int deal(vector<int> &deck){
 }
 
 
-
+//Print Players and Dealers Hands
 void printhands(const vector<int> &dealer, const vector<vector<int>> &hands, const vector<int> &bets){
     int currhand = 1, sum;
     mvprintw(2, 0, "Dealer: %s\nYour hand(s):\n\n", getcard(dealer[0]).c_str());
@@ -106,6 +106,7 @@ void printhands(const vector<int> &dealer, const vector<vector<int>> &hands, con
     }
 }
 
+//Counts number of aces
 int numaces(const vector<int> &hand)
 {
     int aces = 0;
@@ -116,6 +117,7 @@ int numaces(const vector<int> &hand)
     return aces;
 }
 
+//Counts total in the hand
 int sumcards(const vector<int> &hand)
 {
     int val;
@@ -148,6 +150,7 @@ void takeinsurance(const vector<int> &dealer, const vector<int> &bets, int &chip
     }
 }
 
+//Main function to initaialize screen, instructions and main game functions such as the while loop
 int main()
 {
     initscr();
