@@ -94,12 +94,14 @@ public:
 
     void updatePistol(int input) {
         switch(input) {
-            case KEY_UP:
+            case 'w':
+            case 'W':
                 if(pistoly > 1) {
                     pistoly--;
                 }
                 break;
-            case KEY_DOWN:
+            case 's':
+            case 'S':
                 if(pistoly < game_Window_Size_X -5) {
                     pistoly++;
                 }
@@ -262,7 +264,7 @@ int main(){
 
     //handle bullet initialisation
     int input = getch();
-    if(input == KEY_UP || input == KEY_DOWN){
+    if(input == 'w' || 'W' || 's' || 'S'){
     pistol.erase(gameWindow);
     pistol.updatePistol(input);
     pistol.draw(gameWindow);
