@@ -5,6 +5,16 @@
 ## Members:
 Maposa Ngonidzashe, Pingali Divya, Shah Rishi Kalpesh, Tong Chun Shing, Wu Zinuo
 
+# Tasks:
+Maposa Ngonidzashe- Hangman game 
+Pingali Divya- Gun Game
+Wu Zinuo- Blackjack game
+Shah Rishi Kalpesh- Maze game
+Tong Chun Shing- Overall Architecture
+
+NOTE: WHILST THESE WERE THE SPECIALISED TASKS ALLOCATED, EACH OF US HAS WORKED EQUALLY ON THE PROJECT. WE HAVE ALL BEEIN INVOLVED IN THE DEBUGGING, TESTING AND IMPLEMENATION PROCESSES.
+
+
 ## How to run the game:
 
 1. In your terminal run the command "make menu"
