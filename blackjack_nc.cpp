@@ -211,7 +211,7 @@ int main()
             printw("Enter bet amount for hand %d: ", i);
             refresh();
             scanw(format, &bet);
-            if (bet=='q') endwin(); 
+            if (bet == -1) endwin(); 
             if (chips - bet < (numhands - i) * 10) {
                 printw("The max bet is %d. Try again.\n", chips - ((numhands - i) * 10));
                 --i;
