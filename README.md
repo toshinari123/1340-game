@@ -6,11 +6,11 @@
 Maposa Ngonidzashe, Pingali Divya, Shah Rishi Kalpesh, Tong Chun Shing, Wu Zinuo
 
 ## Tasks:
-Maposa Ngonidzashe- Hangman game 
-Pingali Divya- Gun Game
-Wu Zinuo- Blackjack game
-Shah Rishi Kalpesh- Maze game
-Tong Chun Shing- Overall Architecture
+-Maposa Ngonidzashe- Hangman game 
+-Pingali Divya- Gun Game
+-Wu Zinuo- Blackjack game
+-Shah Rishi Kalpesh- Maze game
+-Tong Chun Shing- Overall Architecture
 
 NOTE: WHILST THESE WERE THE SPECIALISED TASKS ALLOCATED, EACH OF US HAS WORKED EQUALLY ON THE PROJECT. WE HAVE ALL BEEIN INVOLVED IN THE DEBUGGING, TESTING AND IMPLEMENATION PROCESSES.
 
@@ -20,15 +20,17 @@ Generation of random game sets or events - Maze game, hangman, and gun game all 
 
 Data structures for storing game status - all games use data structures, especially vectors to store data. Maze game uses it to record traps, games played. Hangman and blackjack use data strucutures to keep count of score. Gun game also stores enemies and bullets using vectors. Other data structures have been used, please check further in the code
 
-Dynamic memory management- Used in making the main menu
+Dynamic memory management- Used in making the main menu, for dynamically allocated queues and threads which are deleted at the end
 
-File input/output (e.g., for loading/saving game status)- txt files used in hangman to load prompts
+File input/output (e.g., for loading/saving game status)- txt files used in hangman to load prompts, game title and main menu buttons reads from tgf files
 
-Program codes in multiple files- check repository
+Program codes in multiple files- each game is separated into its own code for neatness
 
 Proper indentation and naming styles - check files
 
 In-code documentation - check files
+
+nonstandard libraries used: ncurses, ncursesw, ioctl, termios
 
 ## How to run the game:
 
