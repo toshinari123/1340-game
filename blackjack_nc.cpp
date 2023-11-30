@@ -193,6 +193,7 @@ int main()
             mvprintw(4, 0, "\nEnter number of hands (5 max. each): ");
             refresh();
             scanw(format, &numhands);
+            if (numhands==9) endwin();
         } while (numhands > 5);
 
         if (numhands * 10 > chips) {
