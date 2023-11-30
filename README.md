@@ -5,7 +5,7 @@
 ## Members:
 Maposa Ngonidzashe, Pingali Divya, Shah Rishi Kalpesh, Tong Chun Shing, Wu Zinuo
 
-# Tasks:
+## Tasks:
 Maposa Ngonidzashe- Hangman game 
 Pingali Divya- Gun Game
 Wu Zinuo- Blackjack game
@@ -14,6 +14,21 @@ Tong Chun Shing- Overall Architecture
 
 NOTE: WHILST THESE WERE THE SPECIALISED TASKS ALLOCATED, EACH OF US HAS WORKED EQUALLY ON THE PROJECT. WE HAVE ALL BEEIN INVOLVED IN THE DEBUGGING, TESTING AND IMPLEMENATION PROCESSES.
 
+## Requirements:
+
+Generation of random game sets or events - Maze game, hangman, and gun game all use random events: For the maze games the traps are randomly placed, for hangman a random prompt is chosen and for the gun game 
+
+Data structures for storing game status - all games use data structures, especially vectors to store data. Maze game uses it to record traps, games played. Hangman and blackjack use data strucutures to keep count of score. Gun game also stores enemies and bullets using vectors. Other data structures have been used, please check furhter in the code
+
+Dynamic memory management- Used in making the main menu
+
+File input/output (e.g., for loading/saving game status)- txt files used in hangman to load prompts
+
+Program codes in multiple files- check repository
+
+Proper indentation and naming styles - check files
+
+In-code documentation - check files
 
 ## How to run the game:
 
