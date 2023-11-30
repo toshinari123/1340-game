@@ -16,7 +16,7 @@ NOTE: WHILST THESE WERE THE SPECIALISED TASKS ALLOCATED, EACH OF US HAS WORKED E
 
 ## Requirements:
 
-Generation of random game sets or events - Maze game, hangman, and gun game all use random events: For the maze games the traps are randomly placed, for hangman a random prompt is chosen and for the gun game 
+Generation of random game sets or events - Maze game, hangman, and gun game all use random events: For the maze games the traps are randomly placed, for hangman a random prompt is chosen and for the gun game the bullets the monsters are random. In blackjack the dealers hand is also random.
 
 Data structures for storing game status - all games use data structures, especially vectors to store data. Maze game uses it to record traps, games played. Hangman and blackjack use data strucutures to keep count of score. Gun game also stores enemies and bullets using vectors. Other data structures have been used, please check further in the code
 
