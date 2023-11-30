@@ -14,12 +14,12 @@ Maposa Ngonidzashe, Pingali Divya, Shah Rishi Kalpesh, Tong Chun Shing, Wu Zinuo
 ## Overall Gameplay:
 Maze of minigames is a simple game in which the player needs to reach from one end of the board to the other (marked by an 'X). However, if the player runs into a hidden trap while playing the maze, they will be forced to play a random minigame and can only return to the maze once it's completed. The player will be at the begining and will restart the maze, however they will now know where the traps they have already stepped on now.
 
-Controls:
-UP : W key
-DOWN: S key
-LEFT: A key
-RIGHT: D key
-
+### Controls:
+1. UP :   W key
+2. DOWN:  S key
+3. LEFT:  A key
+4. RIGHT: D key
+5. QUIT:  Q key
 ## Minigames
 
 ### Hangman
