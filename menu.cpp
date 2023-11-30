@@ -24,19 +24,36 @@ bool running_game;
 int daemon_to_terminate;
 bool daemon_terminated;
 
+//what it does: convert string to wide string
+//inputs: string
+//output: wide string
 wstring s2ws(const string& str) {
     using convert_typeX = codecvt_utf8<wchar_t>;
     wstring_convert<convert_typeX, wchar_t> converterX;
     return converterX.from_bytes(str);
 }
 
+//what it does: convert wide string to string
+//inputs: wide string
+//output: string
 string ws2s(const wstring& wstr) {
     using convert_typeX = codecvt_utf8<wchar_t>;
     wstring_convert<convert_typeX, wchar_t> converterX;
     return converterX.to_bytes(wstr);
 }
 
+//there are daemons in this code which are classes that controls some number of layers
+//each layer consists of non-overlapping objects, each daemon may have a subdaemon and
+//a superdaemon
+//
+//the keystroke is passed down from daemons to subdaemons;
+//errors are passed up from daemons to superdaemons.
 
+//many of the following function has queue<wstring>* errors as the first argument.
+//it is used as a way to pass errors up to its superdaemon until it reaches the topmost 
+//info daemon at which point it will be displayed as error
+
+//this class is basically a sprite that reads from a tgf file
 class TGF_Object {
 public:
     int bb_rows, bb_cols;
@@ -49,6 +66,9 @@ public:
     bool is_braille;
     wstring optional_string;
 private:
+    //what it does: check each row of .tgf file if the width and the alphabet of each line is consistent
+    //inputs: error queue, the row (s), the allowed characters (p), current row number (row), current tgf file path (path)
+    //outputs: void, if it is inconsistent an error will be pushed
     void check_row(queue<wstring>* errors, wstring s, wstring p, int row, string path) {
         if (bb_cols == 0) bb_cols = s.size();
         if (bb_cols != s.size()) {
@@ -65,6 +85,9 @@ private:
         }
     }
 public:
+    //what it does: loads a .tgf file into a TGF_Object
+    //inputs: errors queue, and the filepath of .tgf relative to where the user started the program
+    //outputs: void
     void load_file(queue<wstring>* errors, string path) {
         bb_cols = bb_rows = pp_row = pp_col = 0;
         wifstream f;
@@ -162,6 +185,9 @@ public:
         }
         //wcerr << L"loaded: " << pp_row << L", " << pp_col << L"\n";
     }
+    //what it does: constructs a TGF object from path and coordinates (alignment and offset)
+    //inputs: path string, row alignment percentage (ax), col alignment percentage (ay), row offset (ox), col offsey (oy)
+    //outputs: returns a TGF_Object
     TGF_Object(queue<wstring>* errors, string path, double ax, double ay, int ox, int oy) {
         alignx = ax;
         aligny = ay;
@@ -173,8 +199,9 @@ public:
         pp_row = 0;
         TGF_Object::load_file(errors, path);
     }
-    //TODO: make constructor for braille
-    //mvprintw no wrap
+    //what it does: constructs a TGF object directly from a string
+    //inputs: content (s), row offset (x), col offset (y), other arguments similar to printf (...)
+    //outputs: a TGF_Object
     TGF_Object(queue<wstring>* errors, int x, int y, wstring s, ...) {
         alignx = 0;
         aligny = 0;
@@ -216,7 +243,9 @@ public:
         }
         va_end(vl);
     }
-    //mvprintw with align coordinates (fractional)
+    //what it does: constructs a TGF object directly from a string, with alingment instead of offset
+    //inputs: content (s), row alignment percentage (x), col alignment precentage (y), other arguments similar to printf (...)
+    //outputs: a TGF_Object
     TGF_Object(queue<wstring>* errors, double x, double y, wstring s, ...) {
         alignx = x;
         aligny = y;
@@ -258,7 +287,9 @@ public:
         }
         va_end(vl);
     }
-    //mvprintw wrap
+    //what it does: constructs a TGF object directly from a string, with wrap if exceed a width
+    //inputs: content (s), row offset (x), col offset (y), width, other arguments similar to printf (...)
+    //outputs: a TGF_Object
     TGF_Object(queue<wstring>* errors, int x, int y, int width, wstring s, ...) {
         alignx = 0;
         aligny = 0;
@@ -310,12 +341,16 @@ public:
         //wcerr << L"eh\n";
         va_end(vl);
     }
+    //what it does: destructor of TGF_Object
     ~TGF_Object() {
        opacity.clear();
        foreground.clear();
        background.clear();
        graphics.clear();
     }
+    //what it does: copy constructor of TGF_object
+    //inputs: TGF_Object
+    //outputs: TGF_Object
     TGF_Object(const TGF_Object &o) {
         bb_rows = o.bb_rows;
         bb_cols = o.bb_cols;
@@ -334,6 +369,9 @@ public:
         is_braille = o.is_braille;
         optional_string = o.optional_string;
     }
+    //what it does: assignment operator for TGF_object
+    //inputs: TGF_object
+    //outputs: TGF_Object
     TGF_Object& operator=(const TGF_Object &o) {
         if (this != &o) {
             bb_rows = o.bb_rows;
@@ -355,20 +393,32 @@ public:
         }
         return *this;
     }
+    //what it does: moves TGF_Object by a certain difference in rows and difference in cols
+    //inputs: difference in rows (dx), difference in cols (dy)
+    //outputs: void
     void move_diff(int dx, int dy) {
         offsetx += dx;
         offsety += dy;
     }
+    //what it does: moves TGF_Object by absolute coordinate (0, 0) is top left
+    //inputs: rows (x), cols (y)
+    //outputs: void
     void move_abs(int x, int y) {
         alignx = aligny = 0;
         offsetx = x;
         offsety = y;
     }
+    //what it does: moves TGF_Object by percentage of screen height and screen width
+    //inputs: row alignment percentage (ax), col alignment percentage (ay)
+    //outputs: void
     void set_align(double ax, double ay) {
         alignx = ax;
         aligny = ay;
         offsetx = offsety = 0;
     }
+    //what it does: sets all the coordinates to get the position you want
+    //inputs: row alignment percentage (ax), col alignment percentage (ay), row offset (ox), col offset (oy)
+    //outputs: void
     void set_all(double ax, double ay, int ox, int oy) {
         alignx = ax;
         aligny = ay;
@@ -377,6 +427,8 @@ public:
     }
 };
 
+//this Layer class contains the objects indexed by names, and accurate representation of current
+//screen with a map of maps
 class Layer {
 private:
     int t_LINES, t_COLS;
@@ -388,10 +440,16 @@ public:
     int layer_id;
     vector<string> optional_keywords;
     map<string, vector<string>> optional_lists;
+    //what it does: Layer constructor
+    //inputs: is_braille (not used), layer_id (layer_id_in), initial screen height (linesss), initial screen width (colsss)
+    //outputs: Layer
     Layer(bool is_b, int layer_id_in, int linesss, int colsss) : 
         is_braille(is_b), layer_id(layer_id_in), t_LINES(linesss), t_COLS(colsss) {
         //wcerr << L"aaaaaaaaaaaa" << t_LINES << t_COLS;
     }
+    //what it does: Layer copy constructor 
+    //inputs: Layer
+    //outputs: Layer
     Layer(const Layer &l) {
         objs = l.objs;
         is_braille = l.is_braille;
@@ -401,6 +459,9 @@ public:
         t_LINES = l.t_LINES;
         t_COLS = l.t_COLS;
     }
+    //what it does: Layer assignment operator
+    //inputs: Layer
+    //outputs: Layer
     Layer& operator=(const Layer& other) {
         if (this != &other) {
             objs = other.objs;
@@ -413,6 +474,9 @@ public:
         }
         return *this;
     }
+    //what it does: loads a .scn file which contains a list of .tgf paths and their 4 coordinates
+    //inputs: errors queue, .scn file path (p)
+    //outputs: void
     void load_scene(queue<wstring>* errors, string p) {
         objs.clear();
         count.clear();
@@ -467,6 +531,7 @@ public:
             this -> add(errors, name, obj);
         }
     }
+    //what it does: Layer destructor
     ~Layer() {
         objs.clear();
         count.clear();
@@ -474,6 +539,9 @@ public:
         optional_keywords.clear();
         optional_lists.clear();
     }
+    //what it does: add an object to layer
+    //inputs: errors queue, name, TGF_Object (obj)
+    //outputs: void
     void add(queue<wstring>* errors, string name, TGF_Object obj) {
         if (objs.find(name) != objs.end()) {
             errors -> push(L"Layer_add: duplicate name in layer");
@@ -502,6 +570,9 @@ public:
             objs.insert(make_pair(name, obj));
         }
     }
+    //what it does: removes an object of layer
+    //inputs: errors queue, name, 
+    //outputs: void
     void remove(queue<wstring>* errors, string name) {
         if (objs.find(name) == objs.end()) {
             errors -> push(L"Layer_remove: cannot find \"" + s2ws(name) + L"\" in layer " + to_wstring(layer_id) + L" to remove");
@@ -527,6 +598,9 @@ public:
             objs.erase(name);
         }
     }
+    //what it does: modifies an object of current layer
+    //inputs: errors queue, name, TGF_Object (new_obj)
+    //outputs: void
     void modify(queue<wstring>* errors, string name, TGF_Object new_obj) {
         this -> remove(errors, name);
         this -> add(errors, name, new_obj);
@@ -536,13 +610,18 @@ public:
             objs[name] = new_obj;
         }*/
     }
-    //TODO: make another modify that takes in a function as input
+    //what it does: redraw with new screen height and new screen width
+    //inputs: errors queue, new screen height (lines), new screen width (cols)
+    //outputs: void
     void redraw_with_params(queue<wstring>* errors, int lines, int cols) {
         //wcerr << L"what are you doing";
         t_LINES = lines, t_COLS = cols;
         //wcerr << L"redrawing layer " << layer_id << L":" << lines << L" " << cols << endl;
         redraw(errors);
     }
+    //what it does: redraw all objects and updates the screen variable
+    //inputs: errors queue
+    //outputs: void
     void redraw(queue<wstring>* errors) {
         screen.clear();
         count.clear();
@@ -564,14 +643,23 @@ public:
             }
         }
     }
+    //what it does: clear all objects and screen
+    //inputs: void
+    //outputs: void
     void clear() {
         objs.clear();
         count.clear();
         screen.clear();
     }
+    //what it does: check if an object with specific name is in this layer
+    //inputs: name
+    //outputs: true or false
     bool check(string name) {
         return objs.find(name) != objs.end();
     }
+    //what it does: check if a character of a specific position exists in screen
+    //inputs: row (x), col (y)
+    //outputs: true or false
     bool check(int x, int y) {
         if (screen.find(x) == screen.end()) return false;
         if (screen[x].find(y) == screen[x].end()) return false;
@@ -579,10 +667,32 @@ public:
     }
 };
 
+//main Daemon class that every other Daemon is derived from
 class Daemon {
 private:
-    //modify below 3 functions in your custom daemon
-    virtual bool process_keystroke(queue<wstring>* errors, int key) {
+    /*void terminate_only_cur_daemon() {
+        daemon_terminated = false;
+        daemon_to_terminate = daemon_id;
+        const auto now = chrono::steady_clock::now();
+        while (!daemon_terminated && chrono::steady_clock::now().time_since_epoch().count() - now.time_since_epoch().count() < 1000000000) {
+            //wcerr << to_wstring(chrono::steady_clock::now().time_since_epoch().count() - now.time_since_epoch().count()) << endl;
+        }
+        //wcerr << L"AAA" << daemon_terminated << L"AAA\n";
+        if (daemon_terminated) {
+            //wcerr << L"HRLLIHLIHIH: " << to_wstring(daemon_id) << L" OK\n";
+            daemon_to_terminate = 0;
+            daemon_terminated = false;
+            //wcerr << L"What" << num_layers;
+            for (int i = 0; i < num_layers; i++) {
+                //wcerr << L"YEY LAYER DLET\n";
+                auto temp = layers -> begin() + starting_layer;
+                layers -> erase(temp);
+            }
+            return;
+        }
+        errors_from_down_and_self -> push(L"daemon " + to_wstring(daemon_id) + L" took too long to terminate");
+    }*/
+	virtual bool process_keystroke(queue<wstring>* errors, int key) {
         int smth = 0;
         if (key == smth) {
             //add cases
@@ -601,10 +711,15 @@ private:
         error_to_pass_up = L"Generic_Daemon: " + error;
         return true;
     }
+    //what it does: overridable function to do some things just before the thread stops
+    //inputs: errors queue
+    //outputs: void
     virtual void postprocess(queue<wstring>* errors) {
         //spawn a new daemon maybe
     }
-    //modify above 3 functions in your custom daemon
+    //what it does: the function called by thread
+    //inputs: keystrokes queue pointer, errors queue pointer
+    //outputs: void
     virtual void run(queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up) {
         signal(SIGSEGV, daemon_handle_int);
         while (!preprocessed) {}
@@ -651,6 +766,11 @@ public:
     string subdaemon_name;
     queue<int>* keystrokes_to_pass_down;
     queue<wstring>* errors_from_down_and_self;
+    //what it does: constructs Daemon
+    //inputs: daemon_id_in, the vector of layers (layers_in), num_layers,
+    //  pointer to queue of keystrokes from superdaemon, pointer to queue of errors from subdaemon
+    //  pointer to superdaemon
+    //outputs: Daemon
     Daemon(int daemon_id_in, vector<Layer>* layers_in, int num_layers_in,
             queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up,
             Daemon* superdaemon_in) {
@@ -669,6 +789,9 @@ public:
         }
         daemon_thread = new thread(&Daemon::run, this, keystrokes_from_up, errors_to_pass_up);
     }
+    //what it does: Daemon copy constructor
+    //inputs: Daemon
+    //outputs: Daemon
     Daemon(const Daemon &d) {
         daemon_thread = d.daemon_thread;
         layers = d.layers;
@@ -678,6 +801,9 @@ public:
         starting_layer = d.starting_layer;
         num_layers = d.num_layers;
     }
+    //what it does: Daemon assignment operator
+    //inputs: Daemon
+    //outputs: Daemon
     Daemon& operator=(const Daemon& d) {
         if (this != &d) {
             daemon_thread = d.daemon_thread;
@@ -690,6 +816,7 @@ public:
         }
         return *this;
     }
+    //what it does: Daemon destructor, also terminates subdaemons and stops their threads
     ~Daemon() {
         if (subdaemon_name != "no subdaemons") {
             //wcerr << L"waat: " << s2ws(subdaemon_name) << endl;
@@ -701,43 +828,31 @@ public:
         daemon_to_terminate = daemon_id;
         if (superdaemon != nullptr) superdaemon -> subdaemon_name = "no subdaemons";
     }
-    /*void terminate_only_cur_daemon() {
-        daemon_terminated = false;
-        daemon_to_terminate = daemon_id;
-        const auto now = chrono::steady_clock::now();
-        while (!daemon_terminated && chrono::steady_clock::now().time_since_epoch().count() - now.time_since_epoch().count() < 1000000000) {
-            //wcerr << to_wstring(chrono::steady_clock::now().time_since_epoch().count() - now.time_since_epoch().count()) << endl;
-        }
-        //wcerr << L"AAA" << daemon_terminated << L"AAA\n";
-        if (daemon_terminated) {
-            //wcerr << L"HRLLIHLIHIH: " << to_wstring(daemon_id) << L" OK\n";
-            daemon_to_terminate = 0;
-            daemon_terminated = false;
-            //wcerr << L"What" << num_layers;
-            for (int i = 0; i < num_layers; i++) {
-                //wcerr << L"YEY LAYER DLET\n";
-                auto temp = layers -> begin() + starting_layer;
-                layers -> erase(temp);
-            }
-            return;
-        }
-        errors_from_down_and_self -> push(L"daemon " + to_wstring(daemon_id) + L" took too long to terminate");
-    }*/
+    //what it does: redraws layers handled by current daemon with new lines and cols
+    //inputs: new screen height (lines), new screen width (cols)
+    //outputs: void
     void redraw(int lines, int cols) {
         for (int i = 0; i < num_layers; i++) {
             layers -> at(starting_layer + i).redraw_with_params(errors_from_down_and_self, lines, cols);
         }
         if (subdaemon_name != "no subdaemons") subdaemon -> redraw(lines, cols);
     }
+    //what it does: if the thread runs into a segmentation fault, terminates the whole program
+    //inputs: signal (sig)
+    //outputs: void
     static void daemon_handle_int(int sig) {
         signal(SIGSEGV, SIG_IGN);
         terminate();
     }
 };
 
+//Daemon that makes menus
 class Menu_Daemon : public Daemon {
 private:
     vector<TGF_Object> focused, unfocused;
+    //what it does: process keystroke (arrow up down, w, s, enter, escape)
+    //inputs: errors queue, the key to process
+    //outputs: true to pass keystroke down, false to not
     bool process_keystroke(queue<wstring>* errors, int key) {
         if (cur_index < 0 || cur_index >= menu_seq.size()) cur_index = 0;
         int next_index = cur_index;
@@ -767,6 +882,9 @@ private:
         cur_index = next_index;
         return true;
     }
+    //what it does: process error
+    //inputs: errors queue, the error to process
+    //outputs: true to pass error up, false to catch the error and handle it
     bool process_error(queue<wstring>* errors, wstring error) {
         if (error.find(L"!!!END!!!") != string::npos) {
             delete subdaemon;
@@ -777,6 +895,10 @@ private:
 public:
     int cur_index;
     vector<string> menu_seq;
+    //what it does: Menu_Daemon constructor
+    //inputs: daemon_id, vector of layers, number of layers, path to .scn (scn_file)
+    //  keyword, pointer to keystrokes queue, pointer to errors queue, pointer to superdaemon
+    //outputs: a Menu_Daemon
     Menu_Daemon(int daemon_id_in, vector<Layer>* layers, int num_layers_in,
             string scn_file, string keyword,
             queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up, 
@@ -796,6 +918,7 @@ public:
         }
         preprocessed = true;
     }
+    //what it does: Menu_Daemon destructor
     ~Menu_Daemon() {
         focused.clear();
         unfocused.clear();
@@ -803,8 +926,12 @@ public:
     }
 };
 
+//The daemon that runs the maze game
 class Game_Daemon : public Daemon {
 private:
+    //what it does: overrided run function so the keystrokes are not processed by menu.cpp
+    //inputs: pointer to keystrokes queue, pointer to errors queue
+    //outputs: void
     void run(queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up) {
         running_game = true;
         system("./maze");
@@ -818,6 +945,10 @@ private:
 errors_to_pass_up -> push(L"!!!EXIT!!!");
     }
 public:
+    //what it does: Game_Daemon constructor
+    //inputs: daemon_id, pointer to vector of layers, pointer to keystrokes queue, pointer to 
+    //  errors queue, pointer to superdaemon
+    //outputs: a Game_Daemon
     Game_Daemon(int daemon_id_in, vector<Layer>* layers, 
             queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up, Daemon* superdaemon)
         : Daemon(daemon_id_in, layers, 1, 
@@ -825,6 +956,8 @@ public:
     }
 };
 
+//declration of Main_Menu_Daemon to avoid circular dependency (Main_Menu_daemon requires
+//Credits_Daemon, Credits_Daemon requires Main_Menu_Daemon)
 class Main_Menu_Daemon : public Menu_Daemon {
 private:
     void postprocess(queue<wstring>* errors);
@@ -833,7 +966,11 @@ public:
             queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up, Daemon* superdaemon);
 };
 
+//daemon to show credits
 class Credits_Daemon : public Daemon {
+    //what it does: overrided keystroke function to handle escape
+    //inputs: errors queue, key to process
+    //outputs: bool
     bool process_keystroke(queue<wstring>* errors, int key) {
         if (key == 27) {
             //wcerr<< L"hello?";
@@ -841,6 +978,9 @@ class Credits_Daemon : public Daemon {
         }
         return true;
     }
+    //what it does: overrided posrprocesss function to spawn Main_Menu_Daemon after terminating
+    //inputs: errors queue
+    //outputs: void
     void postprocess(queue<wstring>* errors) {
         //wcerr << L"porcesprocessing...";
             superdaemon -> subdaemon = new Main_Menu_Daemon(daemon_id, layers,
@@ -849,6 +989,10 @@ class Credits_Daemon : public Daemon {
             superdaemon -> subdaemon_name = "Main_Menu_Daemon";
     }
 public:
+    //what it does: Credits_Daemon constructor
+    //inputs: daemon_id, pointer to vector of layers, pointer to queue of keystrokes,
+    //  pointer to queue of errors, pointer to superdaemon
+    //outputs: a Credits_Daemon
     Credits_Daemon(int daemon_id_in, vector<Layer>* layers, 
             queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up, Daemon* superdaemon)
         : Daemon(daemon_id_in, layers, 1, 
@@ -857,6 +1001,11 @@ public:
         preprocessed = true;
     }
 };
+
+//what it does: overrided postprocess function to spawn different daemons depending on which
+//  index currently in (or to exit the program)
+//inputs: queue of errors
+//outputs: void
 void Main_Menu_Daemon::postprocess(queue<wstring>* errors) {
     if (cur_index == 0) {
         /*superdaemon -> subdaemon = new Select_Game_Menu_Daemon(daemon_id, layers,
@@ -877,6 +1026,10 @@ void Main_Menu_Daemon::postprocess(queue<wstring>* errors) {
     }
 }
 
+//what it does: Main_Menu_Daemon constructor
+//inputs: daemon_id, pointer to vector of layers, pointer to queue of keystrokes,
+//  pointer to queue of errors, pointer to superdaemon
+//outputs: Main_Menu_Daemon
 Main_Menu_Daemon::Main_Menu_Daemon(int daemon_id_in, vector<Layer>* layers,
         queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up, Daemon* superdaemon)
     : Menu_Daemon(daemon_id_in, layers, 1,
@@ -884,10 +1037,14 @@ Main_Menu_Daemon::Main_Menu_Daemon(int daemon_id_in, vector<Layer>* layers,
             keystrokes_from_up, errors_to_pass_up, superdaemon) {
 }
 
-
+//the topmost daemon and the daemon that is always running, responsilbe for debug mode and 
+//to display errors
 class Info_Daemon : public Daemon {
 private:
     bool display_debug;
+    //what it does: overrided keystroke function to handle F5 
+    //inputs: errors queue, key to process
+    //outputs: true or false
     bool process_keystroke(queue<wstring>* errors, int key) {
         if (display_debug) {
             if ((*layers)[starting_layer + 1].check("keystroke")) {
@@ -938,6 +1095,9 @@ private:
         }
         return true;
     }
+    //what it does: overrided process error function, ends program if !!!EXIT!!! is received
+    //inputs: errors queue, error to process
+    //outputs: true or false
     bool process_error(queue<wstring>* errors, wstring error) {
         if (error.find(L"!!!END!!!") != string::npos) {
             delete subdaemon;
@@ -965,6 +1125,10 @@ private:
         return false;
     }
 public:
+    //what it does: Info_Daemon constructor, also spawns Main_Menu_Daemon
+    //inputs: daemon_id, pointer to vector of layers, number of layers, 
+    //  pointer to queue of keystrokes, pointer to queue of errors
+    //outputs: Info_Daemon
     Info_Daemon(int daemon_id_in, vector<Layer>* layers, int num_layers_in,
             queue<int>* keystrokes_from_up, queue<wstring>* errors_to_pass_up)
         : Daemon(daemon_id_in, layers, num_layers_in, keystrokes_from_up, errors_to_pass_up, nullptr) {
@@ -982,6 +1146,9 @@ Daemon* info_daemon;
 
 const int MILLISECONDS_PER_FRAME = 10;
 
+//what it does: renders all the layers (starting from the topmost layer)
+//inputs: the pointer to vector of layers
+//outputs: void
 void render(vector<Layer>* layers) {
     map<int, map<int, wchar_t>> prev_screen;
     while (!stop) {
@@ -1039,6 +1206,9 @@ void render(vector<Layer>* layers) {
     //wcerr << L"stoepd" << endl;
 }
 
+//what it does: handles interrupt signal (does not rly work)
+//inputs: signal
+//outputs: void
 void handle_int(int sig) {
     signal(SIGINT, SIG_IGN);
     //doesnt work :(
@@ -1049,6 +1219,7 @@ void handle_int(int sig) {
     exit(0);
 }
 
+//what it does: initialize ncurses
 void init() {
     initscr();
     noecho();
@@ -1060,6 +1231,9 @@ void init() {
 
 }
 
+//what it does: handles window change signal
+//inputs: signal
+//outputs: void
 void handle_winch(int sig) {
     signal(SIGWINCH, SIG_IGN);
     stop = true;

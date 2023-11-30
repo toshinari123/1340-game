@@ -13,26 +13,19 @@
 #include <random>
 using namespace std;
 
-
 vector<WordInfo> currentThemeData;
 string previousTheme;
 const int THEME_LINE = 4;
 const int NOTE_LINE = 5;
 const int HINT_LINE = 7;
-const int DIFFICULTY_LINE = 9;
-const int BLUNDERS_SCORE_LINE = 11;
-const int PROGRESS_LINE = 13;
-const int MESSAGE_LINE = 24;
-const int GUESS_PROMPT_LINE = 22;
-const int HANGING_LINE = 26;
+    const int DIFFICULTY_LINE = 9;
+    const int BLUNDERS_SCORE_LINE = 11;
+    const int PROGRESS_LINE = 13;
+    const int MESSAGE_LINE = 24;
+    const int GUESS_PROMPT_LINE = 22;
+    const int HANGING_LINE = 26;
 
-
-/*
-  Initializes the ncurses environment, disables line buffering,
-  enables special keys, and sets up color pairs for later use.
-  Input: None
-  Output: None
-*/
+//what it does: initializes ncurses
 void initialize_ncurses() {
     initscr(); // Initialize the ncurses environment
     raw();     // Disable line buffering
@@ -42,12 +35,7 @@ void initialize_ncurses() {
     init_pair(2, COLOR_GREEN, COLOR_BLACK); 
 }
 
-
-/*
-Displays a welcome message for the Hangman Adventure game.
-Input: None
-Output: None
-*/
+//what it does: prints welcome message
 void welcome() {
     printw("***********************************\n");
     printw("*  Welcome to Hangman Adventure!  *\n");
@@ -56,10 +44,9 @@ void welcome() {
   
 }
 
-
-// Function to display game instructions and prompt the player to start the game
-// Input: None
-// Output: Returns true if the player is ready to play, false otherwise
+//what it does: prints instructions
+//inputs: no input
+//outputs: true if player chooses to play, fales if no
 bool display_instructions(){
     printw("Can you save your friend from a dire fate?\n");
     printw("\n");
@@ -103,12 +90,12 @@ bool display_instructions(){
 }
 
 
-// Function to display the hangman's gallows and the hanging person based on the number of errors
-// Input: errors - the number of errors made in the game
-// Output: None
+//Functions from this point are referenced by the start game function
+//what it does: display handman state based on number of errors
+//inputs: int errors
+//outputs: void
 void hang(int errors) {
     if (errors == 0) {
-        // Initial state: no errors
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("                | \n");
@@ -117,7 +104,6 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 1) {
-        // 1 error: display head
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -126,7 +112,6 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 2) {
-        // 2 errors: display head and body
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -135,7 +120,6 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 3) {
-        // 3 errors: display head, body, and left arm
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -144,7 +128,6 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 4) {
-        // 4 errors: display head, body, both arms
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -153,7 +136,6 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 5) {
-        // 5 errors: display head, body, both arms, and left leg
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -162,7 +144,6 @@ void hang(int errors) {
         printw("                | \n");
         printw(" ========================= \n");
     } else if (errors == 6) {
-        // 6 errors: display head, body, both arms, and both legs
         printw("  +-------------+ \n");
         printw("  |             | \n");
         printw("  O             | \n");
@@ -173,13 +154,10 @@ void hang(int errors) {
     }
 }
 
-
-// Function to display the progress of the game, including wrong guesses and the current state of the secret word
-// Input: wrong_guesses - A vector containing the wrong guesses made by the player
-//        solution - The secret word of the game
-// Output: None
+//what it does: displays the progress (wrong guesses and secretword)
+//inputs: wrong gueses (vector of chars), and the solution string
+//outputs: void
 void show_progress(vector<char> wrong_guesses, string solution) {
-    // Display wrong guesses
     printw("\nWrong Guesses: \n");
     for (int i = 0; i < wrong_guesses.size(); i++) {
     attron(A_BOLD | COLOR_PAIR(1));
@@ -204,10 +182,9 @@ void show_progress(vector<char> wrong_guesses, string solution) {
     refresh();  
 }
 
-
-// Function to display the correct word after a wrong guess
-// Input: secretword - The correct word that was guessed incorrectly
-// Output: None
+//what it does: shows the word after failure
+//inputs: string secret word
+//outputs: void
 void show_word_after_wrong_guess(string secretword){
     move(GUESS_PROMPT_LINE, 0);
     clrtoeol();
@@ -234,10 +211,9 @@ void show_word_after_wrong_guess(string secretword){
     }
 }
 
-
-// Function to display the correct word after a correct guess
-// Input: secretword - The correct word that was guessed correctly
-// Output: None
+//what it does: shows the word after correct guess
+//inputs: string secret word
+//outputs: void
 void show_word_after_correct_guess(string secretword){
     move(GUESS_PROMPT_LINE, 0);
     clrtoeol();
@@ -264,36 +240,31 @@ void show_word_after_correct_guess(string secretword){
     }
 }
 
-
-// Function to display the score
-// Input: score - The player's score
-// Output: None
+//what it does: prints the score
+//inputs: int score
+//outputs: void
 void show_score(int score) {
     printw("Score: %d\n", score);
     return;
 }
 
-
-// Function to print an attention-grabbing note
-// Input: None
-// Output: None
+//what it does: prints the warning that hyphens maybe used
+//inputs: no input
+//outputs: boid
 void print_attention_grabbing_note() {
     attron(A_BOLD | A_UNDERLINE | COLOR_PAIR(1));
     printw("Note: Some names may consist of two or more words connected by hyphens.\n");
     attroff(A_BOLD | A_UNDERLINE | COLOR_PAIR(1));
 }
 
-
-// Clean up and close the ncurses environment
+//what it does: called to clean up ncurses
 void cleanup_ncurses() {
     endwin(); // Clean up and close the ncurses environment
 }
 
-// Function to end the game and display the final score and options to play again
-// Input: score - The player's score
-//        errors - The number of errors made by the player
-//        totalWords - The total number of words in the game
-// Output: None
+//what it does: called to display ending of the game
+//inputs: score, number of errors, total number of words
+//outputs: void
 void end_game(int score, int errors, int totalWords) {
     if (errors == 6) {
         move(34,0);
@@ -375,9 +346,9 @@ void end_game(int score, int errors, int totalWords) {
 }
 
 
-// Function to choose a random theme and load the corresponding word data
-// Input: None
-// Output: None
+//what it does: randomly chooses a theme (the text file to get words out of)
+//inputs: no input
+//outputs: void
 void choose_theme(){
     string themes[10] = {"Animals", "Movies", "Countries", "Sports", "Food", "Landmarks", "Science", "Music", "Occupations", "Legends"};
 
@@ -404,10 +375,9 @@ void choose_theme(){
     fin.close();
 }
 
-
-// Function to start the game
-// Input: None
-// Output: None
+//what it does: called to start the game
+//inputs: no input
+//outputs: void
 void start_game() {
     // Check if there is a current theme, otherwise choose a new one
     if (currentThemeData.empty()) {

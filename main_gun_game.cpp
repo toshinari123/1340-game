@@ -21,24 +21,40 @@ public:
 
     bool correct_shot = false;
 
+    //what it does: initlises monster (like a constructor)
+    //inputs: x position (monsterx), y position (monster y)
+    //outputs: void
     void initialise(int monsterx, int monstery){
         this -> monsterx = monsterx;
         this -> monstery = monstery;
     }
+    //what it does: updates window so the monster moves left by 1 character
+    //inputs: window
+    //outputs: void
     void update(WINDOW* window){
         monsterx--;
     }
+    //what it does: draws monster in specified window
+    //inputs: window
+    //outputs: void
     void draw(WINDOW* window){
         mvwprintw(window, monstery, monsterx, "%s", monster_string.c_str());
     }
-
+    //what it does: erases monster in specified window (draw a space on top)
+    //inputs: window
+    //outputs: void
     void erase(WINDOW* window){
         mvwprintw(window, monstery, monsterx, "%s", " ");
     }
-
+    //what it does: uh a function to get the public variable monster x
+    //inputs: no input
+    //outputs: int monsterx
     int monsterX(){
         return monsterx;
     }
+    //what it does: a function to get the public variable monster y
+    //inputs: no input
+    //outputs: int monstery
     int monsterY(){
         return monstery;
     }
@@ -47,28 +63,37 @@ class Bullet{
 public:
     int bulletx, bullety;
     string bullet_string = "=";
-
+    //what it does: initlises bullet (like a constructor)
+    //inputs: x position (bullet x), y position (bullet y)
+    //outputs: void
     void initialise(int bulletx, int bullety){
         this -> bulletx = bulletx;
         this -> bullety = bullety;
     }
-
+    //what it does: draws bullet in specified window
+    //inputs: window
+    //outputs: void
     void draw(WINDOW* window){
         mvwprintw(window, bullety, bulletx,"%s",bullet_string.c_str());
     }
-
+    //what it does: updates window so the bullet moves right by 1 character
+    //inputs: window
+    //outputs: void
     void update(WINDOW* window){
             //usleep(DELAY);
             bulletx += 1;
     }
-
+    //what it does: erases bullet in specified window (draw a space on top)
+    //inputs: window
+    //outputs: void
     void erase(WINDOW* window){
         mvwprintw(window, bullety, bulletx, " ");
     }
-
+    //similar to monsterX
     int bulletX(){
         return bulletx;
     }
+    //similar to monsterY
     int bulletY(){
         return bullety;
     }
@@ -80,18 +105,24 @@ public:
     string pistol_string_1 = "_______";
     string pistol_string_2 = "| _____|";
     string pistol_string_3 = "|_|";
-
+    //what it does: initlises pistol (like a constructor)
+    //inputs: x position (pistolx), y position (pistoly)
+    //outputs: void
     void initialise(int pistolx, int pistoly){
         this -> pistoly = pistoly;
         this -> pistolx = pistolx;
     }
-
+    //what it does: draws pistol in specified window
+    //inputs: window
+    //outputs: void
     void draw(WINDOW* window) {
         mvwprintw(window, pistoly, pistolx,"%s",pistol_string_1.c_str());
         mvwprintw(window, pistoly + 1, pistolx,"%s",pistol_string_2.c_str());
         mvwprintw(window, pistoly + 2, pistolx,"%s",pistol_string_3.c_str());
     }
-
+    //what it does: updates window so the pistol moves up or down
+    //inputs: window
+    //outputs: void
     void updatePistol(int input) {
         switch(input) {
             case 'w':
@@ -110,9 +141,13 @@ public:
                 break;
         }
     }
+    //similar to monsterY
     int pistolY(){
         return pistoly;
     }
+    //what it does: erases pistol in specified window (draw spaces on top)
+    //inputs: window
+    //outputs: void
     void erase(WINDOW *window){
         mvwprintw(window, pistoly, pistolx,"%s", "       ");
         mvwprintw(window, pistoly + 1, pistolx,"%s", "        ");

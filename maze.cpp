@@ -58,7 +58,7 @@ void Game::window(){
     printw("LEFT:  A key\n");
     printw("RIGHT: D key\n");
     printw("Quit:  Q\n\n");
-    printw("Goal: Get from the top left corner of the screen to the bottom right\n\n");
+    printw("Goal: Get from the top left corner of the screen to the bottom left\n\n");
     printw("Be careful! If you hit a trap you have to play a minigame and will be sent to the begining\n\n");
     printw("Good Luck! Press Any Key to continue");
     getch();
