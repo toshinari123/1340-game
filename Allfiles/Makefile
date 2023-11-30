@@ -1,5 +1,8 @@
 FLAGS = -pedantic-errors -std=c++11
 
+menu: menu.cpp hangman main_gun_game blackjack maze
+	g++ -pthread -std=c++11 menu.cpp -o menu -lncursesw
+
 hangman_main.o: hangman_main.cpp hangman.h
 	g++ $(FLAGS) -c $<
 
@@ -22,6 +25,6 @@ maze: maze.cpp
 	g++ $(FLAGS) $^ -lncurses -o $@
 
 clean:
-	rm -f  *.o main_gun_game hangman maze blackjack
+	rm -f  *.o main_gun_game hangman maze blackjack menu
 
 .PHONY: clean
