@@ -1,40 +1,30 @@
-FLAGS = -std=c++11 -pthread -g
+FLAGS = -pedantic-errors -std=c++11
 
-OTHERS = out/main.o out/Main_Menu_Daemon.o out/Select_Game_Menu_Daemon.o out/misc.o
+menu: menu.cpp hangman main_gun_game blackjack maze
+	g++ -pthread -std=c++11 menu.cpp -o menu -lncursesw
 
-GAMES = games/blackjack/blackjack games/gun/main_gun_game games/hangman/hangman game/maze/game
+hangman_main.o: hangman_main.cpp hangman.h
+	g++ $(FLAGS) -c $<
 
-game: $(OTHERS) $(GAMES)
-	g++ $(FLAGS) $(OTHERS) -o out/game -lncursesw
+hangman.o: hangman.cpp hangman.h
+	g++ $(FLAGS) -c $<
 
-out/misc.o: generics/misc.cpp generics/misc.h
-	g++ $(FLAGS) -o $@ -c $< -lncursesw
+hangman: hangman.o hangman_main.o
+	g++ $(FLAGS) $^ -lncurses -o $@
 
-out/main.o: main.cpp
-	g++ $(FLAGS) -o $@ -c $< -lncursesw
+main_gun_game.o: main_gun_game.cpp gun_game.h
+	g++ $(FLAGS) -c $< -lncurses
 
-out/Main_Menu_Daemon.o: daemons/Main_Menu_Daemon.cpp daemons/Main_Menu_Daemon.h
-	g++ $(FLAGS) -o $@ -c $< -lncursesw
+main_gun_game: main_gun_game.o
+	g++ $(FLAGS) $^ -o $@ -lncurses
 
-out/Select_Game_Menu_Daemon.o: daemons/Select_Game_Menu_Daemon.cpp daemons/Select_Game_Menu_Daemon.h
-	g++ $(FLAGS) -o $@ -c $< -lncursesw
+blackjack: blackjack_nc.cpp
+	g++ $(FLAGS) $^ -lncurses -o $@
 
-games/blackjack/blackjack: games/blackjack/blackjack.cpp
-	cd ./games/blackjack; g++ $(FLAGS) blackjack.cpp -o blackjack -lncurses; cd ../..
-
-#games/gun/main: games/gun/game.cpp games/gun/main.cpp games/gun/popup.cpp
-#	cd ./games/gun; make main; cd ../..
-
-games/gun/main_gun_game: games/gun/main_gun_game.cpp games/gun/gun_game.h
-	cd ./games/gun; make main_gun_game; cd ../..
-
-games/hangman/hangman: games/hangman/hangman.cpp games/hangman/hangman.h games/hangman/main.cpp
-	cd ./games/hangman; make hangman; cd ../..
-
-game/maze/game: games/maze/maze.cpp
-	cd ./games/maze; make game; cd ../..
+maze: maze.cpp
+	g++ $(FLAGS) $^ -lncurses -o $@
 
 clean:
-	rm out/*; cd ./games/blackjack; rm -f blackjack.o; cd ../gun; make clean; cd ../hangman; make clean; cd ../maze; make clean; cd ../..
+	rm -f  *.o main_gun_game hangman maze blackjack menu
 
 .PHONY: clean
