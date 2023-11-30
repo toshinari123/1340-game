@@ -176,10 +176,8 @@ int main()
     printw("PRESS ENTER TO START");
 
     int ch = getch();
-    if (ch == '\n') {
-        clear();  // Clear the screen
-        refresh();  // Update the screen with the new output
-    }
+    clear();  // Clear the screen
+    refresh();  // Update the screen with the new output
 
     while (chips<=2500) {
         vector<int> deck, dealer, bets;
@@ -344,11 +342,8 @@ int main()
             }
         }
         int ch = getch();
-        if (ch == '\n') {
         clear();  // Clear the screen
         refresh();  // Update the screen with the new output
-    }
-        
     }
 
     printw("Thank you for playing!\nTotal score: %d\nCash return: $%.2f\n", chips, (double)chips/100);
