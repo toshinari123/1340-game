@@ -7,8 +7,8 @@ Maposa Ngonidzashe, Pingali Divya, Shah Rishi Kalpesh, Tong Chun Shing, Wu Zinuo
 
 ## How to run the game:
 
-1. In your terminal run the command "make maze"
-2. Type "./maze"
+1. In your terminal run the command "make menu"
+2. Type "./menu"
 3. Before playing again we reconmmend running the command "make clean" 
 
 ## Overall Gameplay:
