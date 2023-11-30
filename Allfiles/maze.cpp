@@ -10,7 +10,7 @@
 using namespace std;
 
 
-
+//Game Class to make the program easier to organise
 class Game {
 public:
     Game();
@@ -34,7 +34,7 @@ private:
     void showtrap();
 };
 
-
+//Initializing the main game
 Game::Game() {
     srand(time(0));
     initscr(); // initialize ncurses
@@ -48,6 +48,7 @@ Game::Game() {
     initGame();
 }
 
+//Function to display initial window
 void Game::window(){
     WINDOW* window= newwin(LINES,COLS, 0, COLS/2);
     printw("WELCOME TO THE MAZE OF MINIGAMES!\n\n");
@@ -67,6 +68,7 @@ void Game::window(){
 
 }
 
+//Funntion to call main maze game after minigame has been played
 void Game:: playagain(){
     initscr(); // initialize ncurses
     raw(); // disable line buffering
@@ -77,6 +79,7 @@ void Game:: playagain(){
     init_pair(1, COLOR_CYAN, COLOR_BLACK); // define color pair
 }
 
+//Initialize player, traps and minigames
 void Game::initGame() {
     playerX = 0;
     playerY = 0;
@@ -99,6 +102,7 @@ void Game::initGame() {
     curs_set(0);
 }
 
+//Display player and Traps on the board
 void Game::draw() {
     clear();
     showtrap();
@@ -119,6 +123,7 @@ void Game::draw() {
     refresh();
 }
 
+//Controlls for player
 void Game::getInput() {
     int key = getch();
     switch (key) {
@@ -141,6 +146,8 @@ void Game::getInput() {
     }
 }
 
+
+//Win condition and play minigame condition
 void Game::update() {
     if (playerX == endX && playerY == endY) {
         clear();
@@ -156,6 +163,7 @@ void Game::update() {
     }
 }
 
+//Checks if the player has landed on a trap and if they have displays the trap
 bool Game::checkCollision() {
     for (int i = 0; i < numTraps; ++i) {
         if (playerX == trapX[i] && playerY == trapY[i]) {
@@ -173,12 +181,14 @@ bool Game::checkCollision() {
 }
 
 
+//Shows all traps the player has already been on
 void Game::showtrap(){
     for(int i=0; i<showX.size(); i++){
         mvprintw(showY[i], showX[i], "T");
     }
 }
 
+//Program to run the minigame
 void Game::playMiniGame() {
     playerX=0;
     playerY=0;
@@ -189,6 +199,7 @@ void Game::playMiniGame() {
     playagain();
 }
 
+//main run function
 void Game::run() {
     while (true) {
         draw();
@@ -197,6 +208,7 @@ void Game::run() {
     }
 }
 
+//main function
 int main() {
     Game game;
     game.run();
