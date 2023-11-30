@@ -150,8 +150,8 @@ int main(){
     mvwprintw(scoreWindow, 1, 40, "%s", "Lives:");
     mvwprintw(instructionsWindow, 1, 1, "%s", "GAME MANUAL:");
     mvwprintw(instructionsWindow, 2, 1, "%s", "Start : G");
-    mvwprintw(instructionsWindow, 3, 1, "%s", "Move Pistol up : Up Arrow");
-    mvwprintw(instructionsWindow, 4, 1, "%s", "Move Pistol down : Down Arrow");
+    mvwprintw(instructionsWindow, 3, 1, "%s", "Move Pistol up : W");
+    mvwprintw(instructionsWindow, 4, 1, "%s", "Move Pistol down : S");
     mvwprintw(instructionsWindow, 5, 1, "%s", "Shoot : SpaceBar");
     mvwprintw(instructionsWindow, 6, 1, "%s", "Quit : Q");
     mvwprintw(instructionsWindow, 7, 1, "%s", "-----------------------------");
