@@ -23,8 +23,8 @@ blackjack: figo
                                                  
                   instructions                   
 the game only uses wasd controls                 
-press escape at any time to exit / pause         
-press f5 to enter / exit debug mode              
+press escape to leave this screen                
+press f5 to enter / exit debug mode in main menu 
 
 [opacity]
 1111111111111111111111111111111111111111111111111

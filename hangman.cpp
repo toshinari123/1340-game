@@ -25,6 +25,7 @@ const int HINT_LINE = 7;
     const int GUESS_PROMPT_LINE = 22;
     const int HANGING_LINE = 26;
 
+//what it does: initializes ncurses
 void initialize_ncurses() {
     initscr(); // Initialize the ncurses environment
     raw();     // Disable line buffering
@@ -34,7 +35,7 @@ void initialize_ncurses() {
     init_pair(2, COLOR_GREEN, COLOR_BLACK); 
 }
 
-
+//what it does: prints welcome message
 void welcome() {
     printw("***********************************\n");
     printw("*  Welcome to Hangman Adventure!  *\n");
@@ -43,7 +44,9 @@ void welcome() {
   
 }
 
-
+//what it does: prints instructions
+//inputs: no input
+//outputs: true if player chooses to play, fales if no
 bool display_instructions(){
     printw("Can you save your friend from a dire fate?\n");
     printw("\n");
@@ -88,6 +91,9 @@ bool display_instructions(){
 
 
 //Functions from this point are referenced by the start game function
+//what it does: display handman state based on number of errors
+//inputs: int errors
+//outputs: void
 void hang(int errors) {
     if (errors == 0) {
         printw("  +-------------+ \n");
@@ -148,7 +154,9 @@ void hang(int errors) {
     }
 }
 
-
+//what it does: displays the progress (wrong guesses and secretword)
+//inputs: wrong gueses (vector of chars), and the solution string
+//outputs: void
 void show_progress(vector<char> wrong_guesses, string solution) {
     printw("\nWrong Guesses: \n");
     for (int i = 0; i < wrong_guesses.size(); i++) {
@@ -174,7 +182,9 @@ void show_progress(vector<char> wrong_guesses, string solution) {
     refresh();  
 }
 
-
+//what it does: shows the word after failure
+//inputs: string secret word
+//outputs: void
 void show_word_after_wrong_guess(string secretword){
     move(GUESS_PROMPT_LINE, 0);
     clrtoeol();
@@ -201,7 +211,9 @@ void show_word_after_wrong_guess(string secretword){
     }
 }
 
-
+//what it does: shows the word after correct guess
+//inputs: string secret word
+//outputs: void
 void show_word_after_correct_guess(string secretword){
     move(GUESS_PROMPT_LINE, 0);
     clrtoeol();
@@ -228,25 +240,31 @@ void show_word_after_correct_guess(string secretword){
     }
 }
 
-
+//what it does: prints the score
+//inputs: int score
+//outputs: void
 void show_score(int score) {
     printw("Score: %d\n", score);
     return;
 }
 
-
+//what it does: prints the warning that hyphens maybe used
+//inputs: no input
+//outputs: boid
 void print_attention_grabbing_note() {
     attron(A_BOLD | A_UNDERLINE | COLOR_PAIR(1));
     printw("Note: Some names may consist of two or more words connected by hyphens.\n");
     attroff(A_BOLD | A_UNDERLINE | COLOR_PAIR(1));
 }
 
-
+//what it does: called to clean up ncurses
 void cleanup_ncurses() {
     endwin(); // Clean up and close the ncurses environment
 }
 
-
+//what it does: called to display ending of the game
+//inputs: score, number of errors, total number of words
+//outputs: void
 void end_game(int score, int errors, int totalWords) {
     if (errors == 6) {
         move(34,0);
@@ -328,7 +346,9 @@ void end_game(int score, int errors, int totalWords) {
 }
 
 
-
+//what it does: randomly chooses a theme (the text file to get words out of)
+//inputs: no input
+//outputs: void
 void choose_theme(){
     string themes[10] = {"Animals", "Movies", "Countries", "Sports", "Food", "Landmarks", "Science", "Music", "Occupations", "Legends"};
 
@@ -355,7 +375,9 @@ void choose_theme(){
     fin.close();
 }
 
-
+//what it does: called to start the game
+//inputs: no input
+//outputs: void
 void start_game() {
     // Check if there is a current theme, otherwise choose a new one
     if (currentThemeData.empty()) {

@@ -18,12 +18,17 @@ int sumcards(const vector<int> &);
 int numaces(const vector<int> &);
 void takeinsurance(const vector<int> &, const vector<int> &, int &);
 
+//what it does: check if card is a face card
+//inputs: card int
+//outputs: true or false
 const bool isfacecard(const int &card){
     int val = card % 13;
     return (val >= 10 || val == 0);
 }
 
-
+//what it does: convert integer representation of card to string representation
+//inputs: card int
+//outputs: card string
 string getcard(const int &card){
     string card_string;
     setlocale(LC_ALL, "");
@@ -77,7 +82,9 @@ string getcard(const int &card){
 }
 
 
-// 
+//what it does: returns the back of deck and pops the back of deck
+//inputs: vector deck
+//outputs: card int
 int deal(vector<int> &deck){
     int res = deck.back();
     deck.pop_back();
@@ -85,7 +92,9 @@ int deal(vector<int> &deck){
 }
 
 
-
+//what it does: prints the current hands
+//inputs: deck of dealer, hands, and corresponding bet of each hand (bets)
+//outputs: void
 void printhands(const vector<int> &dealer, const vector<vector<int>> &hands, const vector<int> &bets){
     int currhand = 1, sum;
     mvprintw(2, 0, "Dealer: %s\nYour hand(s):\n\n", getcard(dealer[0]).c_str());
@@ -106,6 +115,9 @@ void printhands(const vector<int> &dealer, const vector<vector<int>> &hands, con
     }
 }
 
+//what it does: counts number of aces in the hand
+//inputs: vector hand
+//outputs: count int
 int numaces(const vector<int> &hand)
 {
     int aces = 0;
@@ -116,6 +128,9 @@ int numaces(const vector<int> &hand)
     return aces;
 }
 
+//what it does: sum up the card to get the value of a hand
+//inputs: vector hand
+//outputs: sum int
 int sumcards(const vector<int> &hand)
 {
     int val;
@@ -132,7 +147,9 @@ int sumcards(const vector<int> &hand)
     return sum;
 }
 
-
+//what it does: if the player took insurance
+//inputs: dealer deck, bets the player made, current number of chips
+//outputs: void
 void takeinsurance(const vector<int> &dealer, const vector<int> &bets, int &chips)
 {
     mvprintw(2, 0, "Dealer: %s %s \n", getcard(dealer[0]).c_str(), getcard(dealer[1]).c_str());
@@ -349,6 +366,7 @@ int main()
     }
 
     printw("Thank you for playing!\nTotal score: %d\nCash return: $%.2f\n", chips, (double)chips/100);
+    usleep(1000000);
     endwin();
 
     return 0;
