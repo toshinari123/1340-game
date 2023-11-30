@@ -1,16 +1,12 @@
 FLAGS = -std=c++11
 
-game.o: game.cpp game.h popup.h
-	g++ $(FLAGS) -c $<
-popup.o: popup.cpp popup.h game.h
-	g++ $(FLAGS) -c $<
-main.o: main.cpp game.o
-	g++ $(FLAGS) -c $<
+main_gun_game.o: main_gun_game.cpp gun_game.h
+	g++ $(FLAGS) -c $< -lncurses
 
-main: main.o game.o popup.o
+main_gun_game: main_gun_game.o
 	g++ $(FLAGS) $^ -o $@ -lncurses
 
 clean:
-	rm -f game.o popup.o main.o main
+	rm -f *.o main_gun_game
 
 .PHONY: clean

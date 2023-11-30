@@ -84,7 +84,7 @@ void Game::initGame() {
     endY = LINES - 1;
 
     minigames[0]= "games/hangman/hangman";
-    minigames[1]= "games/gun/main";
+    minigames[1]= "games/gun/main_gun_game";
     minigames[2]= "games/blackjack/blackjack";
 
     for (int i = 0; i < numTraps; ++i) {
